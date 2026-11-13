@@ -142,18 +142,75 @@ body{background:radial-gradient(ellipse at 50% 0%,#ffffff 0%,#f6f2ff 45%,#eee9fc
 .stagehub-bottom button span{display:block;font-size:21px;margin-bottom:3px}
 .stagehub-footnote{text-align:center;font-size:11px;color:#896fba;font-weight:800;margin:0}
 @media(max-width:360px){.stagehub{padding-left:10px;padding-right:10px}.stagehub-inner{gap:12px}.stagehub-lab{padding:12px 8px 17px}.stagehub-tile{border-radius:15px}.stagehub-world h2{font-size:23px}}
+
+/* V8.3 — playable board redesign, visuals only: original movement engine intact */
+body{background:radial-gradient(ellipse at 50% 15%,#fff9ff 0%,#eee4ff 58%,#ded5fb 100%)}
+.app{max-width:500px;min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom));gap:0;justify-content:flex-start;position:relative}
+.app:before{content:'✦';position:absolute;left:6%;top:27%;font-size:26px;color:#d8c4fc;pointer-events:none}
+.game-header{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;min-height:58px;gap:10px}
+.game-round{width:48px;height:48px;flex:none;border:3px solid #fefaff;border-radius:19px;background:linear-gradient(#a97afa,#7046c2);color:white;font-size:32px;font-weight:900;box-shadow:0 5px 0 #6946a6,0 7px 14px #6443a934;line-height:1}
+.game-logo{color:#fff;-webkit-text-stroke:3px #6540aa;paint-order:stroke fill;font-size:clamp(32px,9vw,44px);font-weight:1000;letter-spacing:-3px;text-shadow:0 4px 0 #50318d,0 6px 7px #5941a664;position:relative;line-height:1.35}
+.logo-spark{font-size:16px;color:#ffd03a;-webkit-text-stroke:2px #f09b17;position:absolute;right:-12px;top:-6px}
+.game-status{display:grid;grid-template-columns:1fr 1.25fr 1.5fr;align-items:center;width:100%;gap:7px;padding:9px 10px;border:3px solid #fdf7ff;border-radius:24px;background:linear-gradient(150deg,#9471dc,#6743b1);box-shadow:0 5px 0 #b9a3e4,0 8px 13px #5d369833;color:white}
+.game-level-stat,.game-turn-stat{text-align:center;display:flex;flex-direction:column;gap:2px;border-right:1px solid #ffffff50;min-width:0}
+.game-status small{font-size:11px;font-weight:900;color:#f3e8ff;white-space:nowrap}
+.game-status strong{font-size:clamp(18px,6vw,27px);line-height:1.15;font-weight:1000}
+.game-turn-stat em{font-style:normal;font-size:13px;font-weight:900;color:#f6df96}
+.game-stars{display:flex;align-items:center;justify-content:space-evenly;gap:2px;min-width:0}
+.game-stars span{font-size:clamp(18px,5.6vw,28px);color:#ffca39;text-shadow:0 2px 0 #d98b17,0 0 4px #ffe7a5;transition:filter .13s,opacity .13s}
+.game-stars span.lost{color:#d7c7ed;text-shadow:0 2px 0 #705eaa;opacity:.75;filter:saturate(.5)}
+.game-level-label{display:flex;width:100%;justify-content:space-between;align-items:center;gap:6px;padding:12px 5px 9px;min-height:47px}
+.game-level-label .eyebrow{font-size:10px;letter-spacing:.2px;color:#8b71bc;white-space:nowrap}
+.game-level-label strong{font-size:14px;color:#6347a1;font-weight:900;text-align:right}
+.game-shell{border:3px solid #fffaf2;border-radius:27px;background:linear-gradient(140deg,#ffeede,#f9d6cf);padding:9px;box-shadow:0 6px 0 #d3afd5,0 13px 24px #704f9c22}
+.game-shell .board{background:#d9b5aa;gap:3px;padding:5px;border-radius:19px}
+.game-shell .cell{border-radius:9px;background:#fff8e8;box-shadow:inset 0 -3px 0 #f2e2d4,0 1px 0 #fff8}
+.game-shell .cell:nth-child(odd){background:#fffaf1}
+.game-shell .cell.wall{background:linear-gradient(145deg,#b7b5cf,#898cae);box-shadow:inset 2px 2px 0 #d5d2e3,inset -3px -4px 0 #77748e}
+.game-shell .cell.goal:before{background:radial-gradient(circle at 45% 40%,#342348,#1b132e);border-color:#b879e5;box-shadow:0 0 0 2px #f8c8ff,inset 0 4px 6px #0008,0 0 7px #d780f4}
+.game-shell .cell.goal.filled:before{background:#67cba5;border-color:#a1e5ce}
+.game-shell .orb{border:3px solid #ffffffaa;box-shadow:inset -4px -6px 0 #0002,0 4px 0 #0002,0 5px 6px #382e5340}
+.game-shell .orb.n{background:linear-gradient(135deg,#ffb4b6,#f44060 75%)}
+.game-shell .orb.s{background:linear-gradient(135deg,#a9dcff,#3982e7 75%)}
+.game-shell .player .mascot-art{filter:drop-shadow(0 3px 3px #4b2d7255)}
+.hint-strip{margin:12px 0 11px;min-height:38px;padding:8px 11px;border:1px solid #e8dafa;border-radius:14px;background:#fff9ffb8;color:#77619d;font-size:11px;line-height:1.45}
+.hint-strip .dot{background:#af82ee;flex:none}
+.game-controls{display:grid;grid-template-columns:1fr 1.18fr 1fr;gap:9px;width:100%}
+.game-control{min-height:76px;border-radius:19px;border:2px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 5px 0 #a58ac7,0 6px 9px #6a459c30;color:white;font-weight:1000;font-size:13px;line-height:1.1;background:linear-gradient(#b18df4,#8054cc)}
+.game-control .action-glyph{font-size:28px;line-height:1.2;font-family:inherit}
+.game-control small{font-size:10px;color:#f7e8ff;font-weight:800}
+.game-flip{background:linear-gradient(120deg,#f76a8a,#7858e5);box-shadow:0 5px 0 #7953ad,0 6px 9px #6a459c30}
+.game-flip .action-glyph{font-size:22px;letter-spacing:-1.5px}
+.game-control:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #8e71ba}
+.game-control:disabled{opacity:.48}
+.game-help{width:100%;margin-top:14px;display:flex;justify-content:space-between;gap:4px;align-items:center;font-size:10px;font-weight:900;color:#8873ac}
+.game-help .legend{white-space:nowrap}
+@media(max-height:730px){.game-header{margin-bottom:7px;min-height:45px}.game-round{width:41px;height:41px;font-size:25px}.game-status{padding:7px 8px}.game-level-label{padding:6px 4px 5px;min-height:35px}.hint-strip{margin:8px 0;min-height:31px}.game-control{min-height:63px}.game-help{margin-top:8px}.app{padding-top:8px}}
+@media(max-width:360px){.game-header{margin-bottom:8px}.game-round{width:42px;height:42px}.game-logo{font-size:31px}.game-status{gap:4px;padding:8px 6px}.game-status small{font-size:10px}.game-level-label .eyebrow{font-size:9px}.game-level-label strong{font-size:12px}.game-control{font-size:12px;min-height:65px}.game-help{font-size:9px}}
 </style>
-<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=32242"></script>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=39691"></script>
 </head>
 <body>
 <div class="app">
-  <header class="top"><button class="brand" id="homeBtn" aria-label="타이틀 화면으로"><span class="brand-avatar" id="brandAvatar"></span><div><div class="brand-title">자석콩 <span style="font-size:13px">✦</span></div><div class="brand-sub">MAGNET PUZZLE</div></div></button><button class="small-btn" id="selectLevel">☷ 스테이지</button></header>
-  <div class="v8-scorebar"><span id="gameCoins">🪙 0</span><span>·</span><span id="gameScore">🏆 0점</span><span>·</span><span>❤️ 무제한</span></div>
-  <div class="heading"><div><div class="eyebrow" id="world">WORLD 01 · 자석 연구소</div><div class="level-title" id="levelTitle">첫 번째 끌림</div></div><div class="steps"><div class="count" id="moves">0</div><div class="caption">사용한 턴</div></div></div>
-  <div class="shell"><div class="board" id="board" aria-label="6x6 자석 퍼즐 게임판"></div></div>
+  <header class="game-header">
+    <button class="game-round" id="homeBtn" aria-label="홈 화면으로">⌂</button>
+    <div class="game-logo">자석콩<span class="logo-spark">★</span></div>
+    <button class="game-round" id="selectLevel" aria-label="스테이지 선택">☷</button>
+  </header>
+  <section class="game-status" aria-label="현재 스테이지 정보">
+    <div class="game-level-stat"><small>스테이지</small><strong id="stageNum">1</strong></div>
+    <div class="game-turn-stat"><small>이동 횟수</small><strong><span id="moves">0</span><em id="turnTarget"> / 1</em></strong></div>
+    <div class="game-stars" id="starMeter" aria-label="예상 별 3개"><span>★</span><span>★</span><span>★</span></div>
+  </section>
+  <div class="game-level-label"><span class="eyebrow" id="world">WORLD 01 · 자력 실험실</span><strong id="levelTitle">첫 번째 끌림</strong></div>
+  <div class="shell game-shell"><div class="board" id="board" aria-label="6x6 자석 퍼즐 게임판"></div></div>
   <div class="hint-strip"><span class="dot"></span><span id="description">스와이프로 이동하고, 자석을 탭하면 극이 바뀌어요!</span></div>
-  <div class="controls"><button class="control" id="undo"><span class="emoji">↶</span>되돌리기</button><button class="control flip" id="flip"><span class="swap">N ↔ S</span>극 바꾸기</button><button class="control" id="restart"><span class="emoji">↻</span>다시 시작</button></div>
-  <div class="footer"><span>구슬을 모든 구멍에 넣어주세요!</span><div class="legend"><span class="n">● <b>N</b></span><span class="s">● <b>S</b></span></div></div>
+  <div class="game-controls">
+    <button class="game-control game-undo" id="undo"><span class="action-glyph">↶</span><span>되돌리기</span><small>무료</small></button>
+    <button class="game-control game-flip" id="flip"><span class="action-glyph">N⇄S</span><span>극성 전환</span><small>1턴</small></button>
+    <button class="game-control game-restart" id="restart"><span class="action-glyph">↻</span><span>다시하기</span><small>처음부터</small></button>
+  </div>
+  <div class="game-help"><span>구슬을 구멍에 모두 넣어주세요!</span><div class="legend"><span class="n">● <b>N</b></span><span class="s">● <b>S</b></span></div></div>
 </div>
 <div id="overlay"></div>
 <script>
@@ -214,8 +271,8 @@ function copy(s){return {player:s.player,mag:s.mag,balls:s.balls.slice(),filled:
 function position(element,pos){element.style.setProperty('--row',Math.floor(pos/6));element.style.setProperty('--col',pos%6)}
 let pieces=[];
 function createPiece(kind,index,pol){let el=document.createElement('div');el.className='piece '+(kind==='player'?'player':'ball');if(kind==='player')el.innerHTML=MASCOT_SVG;else el.innerHTML=`<div class="orb ${pol?'s':'n'}">${pol?'S':'N'}</div>`;el.dataset.index=index;if(kind==='player')el.setAttribute('aria-label','자석이 캐릭터 · 탭하여 극 바꾸기');document.getElementById('pieces').append(el);pieces.push(el);if(kind==='player')el.addEventListener('click',e=>{e.stopPropagation();act(4)});return el}
-function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;overlay.replaceChildren();document.getElementById('world').textContent='WORLD 01 · 자력 실험실';document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,LEVELS[idx].pols[i]));render(false)}
-function render(animated=true,activated=[]){document.getElementById('moves').textContent=state.moves;document.getElementById('undo').disabled=!history.length||busy;const els=board.querySelectorAll('.cell');els.forEach((el,i)=>{el.classList.toggle('filled',state.filled.some(j=>state.balls[j]===i))});pieces.forEach((el,i)=>{const isPlayer=i===0;const ballIdx=i-1;if(!animated)el.style.transition='none';position(el,isPlayer?state.player:state.balls[ballIdx]);el.classList.toggle('disappear',!isPlayer&&state.filled.includes(ballIdx));el.classList.toggle('activated',!isPlayer&&activated.includes(ballIdx));if(isPlayer){el.classList.toggle('pole-s',state.mag===1);el.classList.toggle('pole-n',state.mag===0)}if(!animated)requestAnimationFrame(()=>el.style.transition='')})}
+function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;overlay.replaceChildren();document.getElementById('world').textContent='WORLD 01 · 자력 실험실';document.getElementById('stageNum').textContent=idx+1;document.getElementById('turnTarget').textContent=' / '+LEVELS[idx].optimal;document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,LEVELS[idx].pols[i]));render(false)}
+function render(animated=true,activated=[]){document.getElementById('moves').textContent=state.moves;const predicted=state.moves<=LEVELS[levelIndex].optimal+1?3:state.moves<=LEVELS[levelIndex].optimal+4?2:1;const meter=document.getElementById('starMeter');meter.setAttribute('aria-label','현재 예상 별 '+predicted+'개');[...meter.children].forEach((star,i)=>star.classList.toggle('lost',i>=predicted));document.getElementById('undo').disabled=!history.length||busy;const els=board.querySelectorAll('.cell');els.forEach((el,i)=>{el.classList.toggle('filled',state.filled.some(j=>state.balls[j]===i))});pieces.forEach((el,i)=>{const isPlayer=i===0;const ballIdx=i-1;if(!animated)el.style.transition='none';position(el,isPlayer?state.player:state.balls[ballIdx]);el.classList.toggle('disappear',!isPlayer&&state.filled.includes(ballIdx));el.classList.toggle('activated',!isPlayer&&activated.includes(ballIdx));if(isPlayer){el.classList.toggle('pole-s',state.mag===1);el.classList.toggle('pole-n',state.mag===0)}if(!animated)requestAnimationFrame(()=>el.style.transition='')})}
 function nextState(s,action,level){const t=copy(s),walls=new Set(level.walls),goals=new Set(level.goals);if(action===4)t.mag=1-t.mag;else{let [dr,dc]=DIRS[action],r=Math.floor(t.player/6)+dr,c=t.player%6+dc;if(r<0||r>=6||c<0||c>=6)return null;const newpos=r*6+c;if(walls.has(newpos)||t.balls.some((x,i)=>!t.filled.includes(i)&&x===newpos))return null;t.player=newpos}t.moves++;
 const selected=[];for(const [dr,dc] of DIRS){let r=Math.floor(t.player/6)+dr,c=t.player%6+dc;while(r>=0&&r<6&&c>=0&&c<6){let pos=r*6+c;if(walls.has(pos))break;let i=t.balls.findIndex((x,j)=>x===pos&&!t.filled.includes(j));if(i!==-1){selected.push([i,dr,dc]);break}r+=dr;c+=dc}}
 let moving=new Map(selected.map(([i,dr,dc])=>[i,level.pols[i]===t.mag?[dr,dc]:[-dr,-dc]]));const paths=Object.fromEntries(selected.map(([i])=>[i,[]]));for(let k=0;k<7;k++){let intent=new Map();for(const [i,[dr,dc]] of moving){const r=Math.floor(t.balls[i]/6)+dr,c=t.balls[i]%6+dc;if(r>=0&&r<6&&c>=0&&c<6){const pos=r*6+c;if(!walls.has(pos)&&pos!==t.player)intent.set(i,pos)}}let changed=true;while(changed){changed=false;const counts=new Map();for(const dest of intent.values())counts.set(dest,(counts.get(dest)||0)+1);for(const [i,dest] of intent){const other=t.balls.findIndex((x,j)=>j!==i&&!t.filled.includes(j)&&x===dest);if(counts.get(dest)>1||(other!==-1&&!intent.has(other))){intent.delete(i);changed=true}}}if(intent.size===0)break;const oldFilledGoals=new Set(t.filled.map(i=>t.balls[i]));for(const [i,dest] of intent){t.balls[i]=dest;paths[i].push(dest)}for(const [i,dest] of intent){if(goals.has(dest)&&!oldFilledGoals.has(dest))t.filled.push(i)}moving=new Map([...moving].filter(([i])=>intent.has(i)&&!t.filled.includes(i)))}return {state:t,active:selected.map(([i])=>i),paths}}
