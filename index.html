@@ -187,6 +187,42 @@ body{background:radial-gradient(ellipse at 50% 15%,#fff9ff 0%,#eee4ff 58%,#ded5f
 .game-help .legend{white-space:nowrap}
 @media(max-height:730px){.game-header{margin-bottom:7px;min-height:45px}.game-round{width:41px;height:41px;font-size:25px}.game-status{padding:7px 8px}.game-level-label{padding:6px 4px 5px;min-height:35px}.hint-strip{margin:8px 0;min-height:31px}.game-control{min-height:63px}.game-help{margin-top:8px}.app{padding-top:8px}}
 @media(max-width:360px){.game-header{margin-bottom:8px}.game-round{width:42px;height:42px}.game-logo{font-size:31px}.game-status{gap:4px;padding:8px 6px}.game-status small{font-size:10px}.game-level-label .eyebrow{font-size:9px}.game-level-label strong{font-size:12px}.game-control{font-size:12px;min-height:65px}.game-help{font-size:9px}}
+
+/* V8.4 · stage-clear presentation (scoped; no game-rule changes) */
+.modal-back.v84-back{padding:14px;background:rgba(46,26,95,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.modal.v84-clear{position:relative;box-sizing:border-box;width:min(100%,390px);max-height:min(92dvh,780px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(170deg,#fdf5ff 0%,#fff9f7 48%,#f6efff 100%);border:4px solid #fff;border-radius:30px;padding:0 17px 18px;color:#54378b;box-shadow:0 8px 0 #c4aae7,0 24px 65px #24114965;animation:v84pop .28s cubic-bezier(.19,1.24,.28,1) both;scrollbar-width:none}
+.v84-clear::-webkit-scrollbar{display:none}
+@keyframes v84pop{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+.v84-ribbon{position:relative;z-index:1;margin:0 -12px 2px;padding:14px 8px 13px;background:linear-gradient(180deg,#ae75f9,#773dd6);border-radius:0 0 22px 22px;border-bottom:5px solid #5f2db3;color:#fff8d3;font-weight:1000;font-size:clamp(21px,6vw,27px);text-shadow:0 3px 0 #6327a6,0 0 10px #ffffff44;letter-spacing:-1px}
+.v84-stars{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;gap:3px;margin:11px 0 -3px;min-height:59px}
+.v84-star{display:inline-block;color:#c9bddb;font-size:clamp(41px,12vw,58px);line-height:1;text-shadow:0 3px 0 #a093bd;filter:saturate(.45);opacity:.65;transform:scale(.9)}
+.v84-star.earned{color:#ffcb40;filter:drop-shadow(0 3px 0 #d78007) drop-shadow(0 0 9px #ffe270);text-shadow:0 1px 0 #fff7cb;opacity:0;animation:v84star .32s cubic-bezier(.15,1.7,.32,1) both;animation-delay:calc(.10s + var(--n)*.16s)}
+@keyframes v84star{0%{opacity:0;transform:translateY(15px) scale(.15) rotate(-24deg)}75%{opacity:1;transform:translateY(-4px) scale(1.18) rotate(5deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+.v84-character{height:137px;position:relative;display:grid;place-items:center;margin:0 auto 2px}
+.v84-character:before{content:'';position:absolute;left:12%;right:12%;top:12%;height:102px;border-radius:50%;background:radial-gradient(circle,#ffe6a6 0%,#f0dcff7a 50%,transparent 76%)}
+.v84-character img{width:134px;max-height:138px;object-fit:contain;position:relative;filter:drop-shadow(0 6px 4px #7252a139);animation:v84hop .54s .18s ease-out both}
+@keyframes v84hop{0%{opacity:0;transform:translateY(22px) scale(.75) rotate(-9deg)}60%{opacity:1;transform:translateY(-8px) scale(1.09) rotate(5deg)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.v84-spark{position:absolute;font-size:21px;color:#ffcb38;animation:v84twinkle .8s ease-in-out infinite alternate}.v84-spark.s1{top:15px;left:18%}.v84-spark.s2{top:39px;right:15%;animation-delay:.35s}.v84-spark.s3{bottom:10px;left:27%;font-size:14px;animation-delay:.2s}
+@keyframes v84twinkle{to{opacity:.35;transform:scale(.75) rotate(14deg)}}
+.v84-reward{border-radius:17px;background:linear-gradient(100deg,#f9dd84,#ffca39);border:2px solid #ffedb5;box-shadow:0 4px 0 #df9d27;display:flex;align-items:center;justify-content:center;gap:10px;margin:7px 5px 13px;padding:8px 12px;font-weight:900;color:#69438e}
+.v84-coin{display:inline-grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;background:linear-gradient(135deg,#ffe99b,#ffab00);border:3px solid #ffde6c;box-shadow:0 3px 0 #dc8100;font-size:22px;color:#fff4ab;text-shadow:0 2px 0 #ce7a00}
+.v84-reward strong{font-size:27px;line-height:1;color:#6640ac;font-variant-numeric:tabular-nums}
+.v84-record{background:#fffaff;border:2px solid #e5d5fb;border-radius:18px;padding:9px 10px 10px;margin:0 1px}
+.v84-record-title{color:#9c75d1;font-size:12px;font-weight:900;margin-bottom:7px;letter-spacing:1px}
+.v84-record-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.v84-record-item{display:flex;align-items:center;flex-direction:column;gap:3px}.v84-record-item:first-child{border-right:1px solid #e6d9f6}
+.v84-record-item span{font-size:12px;color:#9179ab;font-weight:800}.v84-record-item strong{color:#54338c;font-size:21px;font-weight:1000;line-height:1.15;font-variant-numeric:tabular-nums}
+.v84-record-badge{display:inline-block;max-width:100%;font-size:10px;font-weight:900;background:#ff5f9c;color:white;border-radius:99px;padding:3px 9px;margin-top:5px}
+.v84-reward-caption{margin:11px 0 0!important;color:#8c78a9!important;font-size:11px!important;line-height:1.4!important}
+.v84-actions{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;margin-top:13px}
+.v84-actions button{min-height:55px;border-radius:17px;white-space:nowrap;font-size:14px;font-weight:1000;touch-action:manipulation}
+.v84-retry{color:#fff!important;background:linear-gradient(#a77bef,#764bd3)!important;border:2px solid #bba2f6!important;box-shadow:0 5px 0 #55349e!important}
+.v84-next{color:#653388!important;background:linear-gradient(#fff18d,#ffc32c)!important;border:2px solid #fff2ae!important;box-shadow:0 5px 0 #d78b18!important}
+.v84-actions button:active{transform:translateY(3px);box-shadow:none!important}
+.v84-back-levels{display:block;margin:13px auto 0;padding:5px 10px;background:transparent;color:#9476bc;font-size:12px;font-weight:900;text-decoration:underline;text-underline-offset:3px}
+.v84-clear .confetti{z-index:2}
+@media(max-height:710px){.modal.v84-clear{padding-bottom:12px}.v84-ribbon{padding:9px}.v84-stars{margin:6px 0 -8px;min-height:47px}.v84-star{font-size:42px}.v84-character{height:108px}.v84-character img{width:107px;max-height:109px}.v84-reward{margin-bottom:10px}.v84-actions button{min-height:48px}}
+@media(prefers-reduced-motion:reduce){.v84-star.earned,.v84-character img{opacity:1;animation:none}}
 </style>
 </head>
 <body>
@@ -314,10 +350,25 @@ function starCount(){const ideal=LEVELS[levelIndex].optimal;return state.moves<=
 function showWin(){
   const stars=starCount();
   const reward=awardClear(stars);
-  const unlockNote=levelIndex===LEVELS.length-1?'모든 스테이지를 완료했어요!':'다음 스테이지가 열렸어요!';
-  overlay.innerHTML=`<div class="modal-back"><div class="modal win"><div class="confetti">${Array.from({length:22},(_,i)=>`<i style="--x:${(i*37+9)%97}%;--c:${['#ef6b6d','#5a94df','#f2bb55','#53a187'][i%4]};--delay:${(i%6)*.042}s;--duration:${.65+(i%5)*.11}s;--rot:${i*29}deg;--drift:${(i%2?1:-1)*(10+i%4*8)}px"></i>`).join('')}</div><div class="win-mascot">${MASCOT_SVG}</div><h2>퍼즐 해결!</h2><div class="stars celebrate">${'★'.repeat(stars)}<span style="color:#e9e2d0">${'★'.repeat(3-stars)}</span></div><p><b>${state.moves}턴</b>에 성공! · 최소 ${LEVELS[levelIndex].optimal}턴<br>${unlockNote}</p><div class="v8-reward"><div>🪙 획득 코인<strong>+${fmt(reward.gainedCoins)}</strong></div><div>🏆 기록 점수<strong>+${fmt(reward.gainedScore)}</strong></div></div><div class="v8-reward-note">${reward.gainedCoins||reward.gainedScore?'최고 별 기록 보상을 받았어요!':'이미 받은 별 보상은 중복 지급되지 않아요.'}<br>보유 코인 ${fmt(saved.coins)} · 총 점수 ${fmt(saved.totalScore)}</div><div class="modal-actions"><button class="secondary" id="winRetry">다시 도전</button><button class="primary" id="winNext">${levelIndex===LEVELS.length-1?'스테이지 선택':'다음 스테이지 →'}</button></div></div></div>`;
+  const isLast=levelIndex===LEVELS.length-1;
+  const improved=stars>reward.prev;
+  const newTurnRecord=state.moves===(saved.bestTurns[levelIndex]||state.moves);
+  const congratulation=improved?'새로운 별 기록!':newTurnRecord?'최고 턴 기록!':'퍼즐 해결!';
+  const shownStars=Array.from({length:3},(_,i)=>`<span class="v84-star ${i<stars?'earned':''}" style="--n:${i}" aria-hidden="true">★</span>`).join('');
+  const confetti=Array.from({length:22},(_,i)=>`<i style="--x:${(i*37+9)%97}%;--c:${['#ef6b6d','#5a94df','#f2bb55','#a16fe7'][i%4]};--delay:${(i%6)*.042}s;--duration:${.65+(i%5)*.11}s;--rot:${i*29}deg;--drift:${(i%2?1:-1)*(10+i%4*8)}px"></i>`).join('');
+  overlay.innerHTML=`<div class="modal-back v84-back"><section class="modal win v84-clear" role="dialog" aria-modal="true" aria-label="스테이지 클리어"><div class="confetti" aria-hidden="true">${confetti}</div>
+    <div class="v84-ribbon">스테이지 클리어!</div>
+    <div class="v84-stars" role="img" aria-label="별 ${stars}개 획득">${shownStars}</div>
+    <div class="v84-character"><span class="v84-spark s1">✦</span><span class="v84-spark s2">✦</span><span class="v84-spark s3">✦</span><img src="assets/jaseogi.png" alt="기뻐하는 자석이"></div>
+    <div class="v84-reward"><span class="v84-coin" aria-hidden="true">★</span><span>획득 코인</span><strong>+${fmt(reward.gainedCoins)}</strong></div>
+    <div class="v84-record"><div class="v84-record-title">✦ 이번 스테이지 기록 ✦</div><div class="v84-record-grid"><div class="v84-record-item"><span>이동 횟수</span><strong>${state.moves}턴</strong><small>최소 ${LEVELS[levelIndex].optimal}턴</small></div><div class="v84-record-item"><span>최고 점수</span><strong>${fmt(saved.bestScores[levelIndex])}점</strong><small>이번 추가 +${fmt(reward.gainedScore)}점</small></div></div>${improved||newTurnRecord?`<span class="v84-record-badge">🏆 ${congratulation}</span>`:''}</div>
+    <p class="v84-reward-caption">${reward.gainedCoins?'별 기록 갱신 보상이 지급됐어요!':'이미 획득한 코인은 중복 지급되지 않아요.'} · 보유 ${fmt(saved.coins)}코인</p>
+    <div class="v84-actions"><button type="button" class="v84-retry" id="winRetry">↻ 다시하기</button><button type="button" class="v84-next" id="winNext">▶ ${isLast?'스테이지 선택':'다음 스테이지'}</button></div>
+    <button type="button" class="v84-back-levels" id="winLevels">스테이지 선택으로</button>
+  </section></div>`;
   document.getElementById('winRetry').onclick=()=>loadLevel(levelIndex);
-  document.getElementById('winNext').onclick=()=>levelIndex===LEVELS.length-1?showLevels():loadLevel(levelIndex+1);
+  document.getElementById('winNext').onclick=()=>isLast?showLevels(0):loadLevel(levelIndex+1);
+  document.getElementById('winLevels').onclick=()=>{busy=false;showLevels(0)};
 }
 let stageHubWorld=0;
 function showLevels(world=stageHubWorld){
