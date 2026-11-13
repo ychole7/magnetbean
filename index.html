@@ -188,7 +188,6 @@ body{background:radial-gradient(ellipse at 50% 15%,#fff9ff 0%,#eee4ff 58%,#ded5f
 @media(max-height:730px){.game-header{margin-bottom:7px;min-height:45px}.game-round{width:41px;height:41px;font-size:25px}.game-status{padding:7px 8px}.game-level-label{padding:6px 4px 5px;min-height:35px}.hint-strip{margin:8px 0;min-height:31px}.game-control{min-height:63px}.game-help{margin-top:8px}.app{padding-top:8px}}
 @media(max-width:360px){.game-header{margin-bottom:8px}.game-round{width:42px;height:42px}.game-logo{font-size:31px}.game-status{gap:4px;padding:8px 6px}.game-status small{font-size:10px}.game-level-label .eyebrow{font-size:9px}.game-level-label strong{font-size:12px}.game-control{font-size:12px;min-height:65px}.game-help{font-size:9px}}
 </style>
-<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=39691"></script>
 </head>
 <body>
 <div class="app">
@@ -249,7 +248,7 @@ function coinForStars(n){return [0,20,30,50][n]||0}
 function fmt(n){return Number(n||0).toLocaleString('ko-KR')}
 function starTotal(){return Object.values(saved.stars).reduce((a,b)=>a+b,0)}
 function completedCount(){return Object.values(saved.stars).filter(v=>v>0).length}
-function updateHud(){document.getElementById('gameCoins').textContent='🪙 '+fmt(saved.coins);document.getElementById('gameScore').textContent='🏆 '+fmt(saved.totalScore)+'점'}
+function updateHud(){const coins=document.getElementById('gameCoins');const score=document.getElementById('gameScore');if(coins)coins.textContent='🪙 '+fmt(saved.coins);if(score)score.textContent='🏆 '+fmt(saved.totalScore)+'점'}
 function awardClear(stars){
   const prev=saved.stars[levelIndex]||0;
   const oldScore=saved.bestScores[levelIndex]||0;
