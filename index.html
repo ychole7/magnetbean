@@ -223,6 +223,19 @@ body{background:radial-gradient(ellipse at 50% 15%,#fff9ff 0%,#eee4ff 58%,#ded5f
 .v84-clear .confetti{z-index:2}
 @media(max-height:710px){.modal.v84-clear{padding-bottom:12px}.v84-ribbon{padding:9px}.v84-stars{margin:6px 0 -8px;min-height:47px}.v84-star{font-size:42px}.v84-character{height:108px}.v84-character img{width:107px;max-height:109px}.v84-reward{margin-bottom:10px}.v84-actions button{min-height:48px}}
 @media(prefers-reduced-motion:reduce){.v84-star.earned,.v84-character img{opacity:1;animation:none}}
+
+/* V8.5 shop: cosmetic purchases, live previews and mobile layout */
+.shop85{position:fixed;inset:0;z-index:48;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(160deg,#f9d4fa,#e6c7fb 40%,#d9ceff 82%,#f8e9ff);padding:calc(12px + env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));font-family:inherit;color:#58348b}
+.shop85-inner{max-width:520px;margin:auto}.shop85-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.shop85-back{flex:none;width:48px;height:48px;border-radius:17px;background:linear-gradient(#b98af7,#7444bf);color:white;font-size:29px;border:2px solid #e7c9ff;box-shadow:0 5px 0 #5a3497}.shop85-title{flex:1;text-align:center;font-size:27px;font-weight:1000;color:white;text-shadow:0 3px 0 #70429e,0 4px 8px #64388866;letter-spacing:-1px}.shop85-wallet{background:#6945a3;color:#fff;border-radius:999px;padding:8px 12px;border:2px solid #c1a0e9;font-weight:1000;font-size:16px;white-space:nowrap}.shop85-hero{border-radius:25px 25px 17px 17px;background:linear-gradient(#ae6ed7,#d294df 64%,#f4cdbb 64%,#eeb894 72%,#be7d59 73%,#b67e60);border:3px solid #f1d8ff;box-shadow:0 7px 0 #ad83c0,0 12px 24px #63348729;min-height:174px;display:flex;align-items:center;padding:10px 14px 21px;position:relative;overflow:hidden}.shop85-hero:before{content:'✦  ✧   ✦';position:absolute;right:5%;top:8%;color:#ffe96c;font-size:29px;opacity:.9}.shop85-mascot{width:39%;height:145px;object-fit:contain;filter:drop-shadow(0 7px 3px #60316850);z-index:1}.shop85-talk{background:white;border:3px solid #c69dea;border-radius:20px;padding:13px 11px;font-weight:900;line-height:1.45;font-size:16px;max-width:58%;text-align:center;z-index:1;box-shadow:0 3px 0 #9865ba}.shop85-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:16px 0 14px}.shop85-tab{border-radius:18px;padding:12px 2px;background:#eee2fc;color:#71549b;font-weight:900;border:2px solid #d6baf1;box-shadow:0 4px 0 #c0a2e3}.shop85-tab.active{background:linear-gradient(#fff4a9,#ffd25e);color:#603b84;border-color:#fff1bc;box-shadow:0 4px 0 #e4ab53}.shop85-panel{background:#fff9fe;border:2px solid #e8c8f7;border-radius:23px;padding:14px 11px 18px;box-shadow:0 6px 0 #c8a5de}.shop85-panel h2{font-size:21px;font-weight:1000;margin:0 0 5px}.shop85-desc{font-size:12px;font-weight:700;color:#9d83ae;margin:0 0 14px;line-height:1.5}.shop85-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.shop85-card{background:linear-gradient(#fff,#f8ecff);border:2px solid #e2c9f6;border-radius:20px;padding:10px 7px 12px;display:flex;align-items:center;flex-direction:column;min-width:0;box-shadow:0 3px 0 #ddc2ed}.shop85-card.equipped{border-color:#f2c64a;background:linear-gradient(#fffdf1,#fff0cf)}.shop85-preview{height:115px;width:100%;border-radius:14px;background:radial-gradient(circle,#fff,#edddff);position:relative;display:grid;place-items:center;overflow:hidden}.shop85-preview>img{width:87px;height:106px;object-fit:contain;filter:drop-shadow(0 4px 2px #7c629133)}.shop85-preview .shop85-ornament{position:absolute;top:0px;right:10px;font-size:32px;filter:drop-shadow(0 2px 1px #694e6e55)}.shop85-card h3{font-size:15px;margin:9px 0 3px;font-weight:1000;white-space:nowrap}.shop85-card small{font-size:10px;color:#9c86aa;margin-bottom:9px;min-height:15px}.shop85-buy{width:100%;border-radius:15px;min-height:40px;font-weight:1000;font-size:14px;background:linear-gradient(#af80f2,#7f4ecb);color:#fff;border:2px solid #c49ff5;box-shadow:0 3px 0 #653ba5}.shop85-buy.equipped{background:linear-gradient(#85d671,#46ae58);border-color:#b7e99c;box-shadow:0 3px 0 #388c42}.shop85-buy.owned{background:linear-gradient(#fff4a1,#ffc546);border-color:#ffe7a0;color:#714d34;box-shadow:0 3px 0 #d39a31}.shop85-buy:disabled{background:#ccc4d9;color:#fff;box-shadow:0 3px 0 #aca4b8;border-color:#d9d2e2;opacity:1}.shop85-theme-preview{height:80px;width:95%;border-radius:13px;background:var(--preview-base);border:6px solid var(--preview-edge);display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:4px;margin:17px auto 18px}.shop85-theme-preview i{background:var(--preview-tile);border-radius:5px;box-shadow:inset 0 -2px 0 #0001}.shop85-items{display:grid;gap:10px}.shop85-item{display:flex;gap:11px;align-items:center;background:#f5edfc;padding:12px;border:1px solid #e3d2f0;border-radius:17px}.shop85-item-icon{font-size:32px;width:48px;text-align:center}.shop85-item strong{font-size:15px}.shop85-item p{font-size:11px;line-height:1.5;margin:3px 0;color:#8b78a0}.shop85-coming{margin-left:auto;white-space:nowrap;color:#927bb1;font-size:11px;font-weight:900}.shop85-note{margin:16px 6px 0;text-align:center;font-size:11px;font-weight:700;line-height:1.5;color:#7a5c95}
+/* Keep the confirmed mascot artwork intact; accessories are a separate decorative layer. */
+body[data-skin="crown"] .player:after,body[data-skin="crown"] .v81-stage:after,body[data-skin="crown"] .v84-character:after{content:'👑';position:absolute;z-index:8;top:-20%;left:50%;transform:translateX(-50%) rotate(-9deg);font-size:clamp(17px,5vw,30px);pointer-events:none}
+body[data-skin="crown"] .v81-stage:after{top:0%;font-size:56px}body[data-skin="crown"] .v84-character:after{top:-7%;font-size:35px}
+body[data-skin="space"] .player:after,body[data-skin="space"] .v81-stage:after,body[data-skin="space"] .v84-character:after{content:'🪐';position:absolute;z-index:8;top:-20%;right:-7%;font-size:clamp(15px,5vw,28px);pointer-events:none}body[data-skin="space"] .v81-stage:after{top:7%;right:16%;font-size:58px}body[data-skin="space"] .v84-character:after{right:20%;top:3%;font-size:35px}
+body[data-skin="explorer"] .player:after,body[data-skin="explorer"] .v81-stage:after,body[data-skin="explorer"] .v84-character:after{content:'🧭';position:absolute;z-index:8;bottom:-17%;right:-8%;font-size:clamp(16px,5vw,28px);pointer-events:none}body[data-skin="explorer"] .v81-stage:after{bottom:10%;right:15%;font-size:54px}body[data-skin="explorer"] .v84-character:after{right:17%;font-size:35px}
+body[data-board-theme="candy"] .game-shell .board{background:#f6aecb}body[data-board-theme="candy"] .game-shell .cell{background:#ffe3ec}body[data-board-theme="candy"] .game-shell .cell:nth-child(odd){background:#fff1ef}body[data-board-theme="candy"] .game-shell{background:#ffd4eb;box-shadow:0 7px 0 #e5afcc,0 15px 29px #a6539a33}
+body[data-board-theme="space"] .game-shell .board{background:#6758aa}body[data-board-theme="space"] .game-shell .cell{background:#b6b4ec}body[data-board-theme="space"] .game-shell .cell:nth-child(odd){background:#d1c9f4}body[data-board-theme="space"] .game-shell{background:#8f7bd3;box-shadow:0 7px 0 #6f5bb5,0 15px 29px #49348a33}
+body[data-board-theme="forest"] .game-shell .board{background:#86bb8c}body[data-board-theme="forest"] .game-shell .cell{background:#d5f5c6}body[data-board-theme="forest"] .game-shell .cell:nth-child(odd){background:#e8f9d4}body[data-board-theme="forest"] .game-shell{background:#b5e2ab;box-shadow:0 7px 0 #81c48e,0 15px 29px #438c5633}
+@media(max-width:360px){.shop85-hero{min-height:150px}.shop85-mascot{height:120px}.shop85-talk{font-size:14px}.shop85-preview{height:102px}.shop85-preview>img{height:95px}}
 </style>
 </head>
 <body>
@@ -258,7 +271,7 @@ const DIRS=[[-1,0],[0,1],[1,0],[0,-1]];
 const board=document.getElementById('board'),overlay=document.getElementById('overlay');
 let levelIndex=0, state,history=[],busy=false,lock=false;
 const SAVE_KEY='magnetkong-save';
-let saved={unlocked:1,stars:{},coins:0,bestScores:{},bestTurns:{},totalScore:0,saveVersion:8};
+let saved={unlocked:1,stars:{},coins:0,bestScores:{},bestTurns:{},totalScore:0,saveVersion:8,shopOwned:{skin:["basic"],theme:["basic"]},equippedSkin:"basic",equippedTheme:"basic"};
 try{
   const raw=JSON.parse(localStorage.getItem(SAVE_KEY)||'{}');
   if(raw&&typeof raw==='object'){
@@ -273,12 +286,21 @@ try{
       const i=Number(k);if(Number.isInteger(i)&&i>=0&&i<LEVELS.length&&Number(v)>0)saved.bestTurns[i]=Math.floor(Number(v));
     }
     saved.coins=Math.max(0,Math.floor(Number(raw.coins)||0));
+    const validSkin=['basic','crown','space','explorer'],validTheme=['basic','candy','space','forest'];
+    for(const [category,valid] of [['skin',validSkin],['theme',validTheme]]){
+      const values=raw.shopOwned&&Array.isArray(raw.shopOwned[category])?raw.shopOwned[category]:[];
+      saved.shopOwned[category]=['basic',...new Set(values.filter(id=>valid.includes(id)))];
+    }
+    saved.equippedSkin=saved.shopOwned.skin.includes(raw.equippedSkin)?raw.equippedSkin:'basic';
+    saved.equippedTheme=saved.shopOwned.theme.includes(raw.equippedTheme)?raw.equippedTheme:'basic';
     // Legacy saves retain stars and stage unlocks. Existing clears do not generate retroactive coins.
     for(const [k,v] of Object.entries(saved.stars))saved.bestScores[k]=Math.max(saved.bestScores[k]||0,scoreForStars(v));
     saved.totalScore=Object.values(saved.bestScores).reduce((a,b)=>a+b,0);
   }
 }catch(e){console.warn('저장 데이터를 읽지 못했습니다.',e)}
 function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(saved))}catch(e){console.warn('저장 실패',e)}}
+function applyCosmetics(){document.body.dataset.skin=saved.equippedSkin;document.body.dataset.boardTheme=saved.equippedTheme}
+applyCosmetics();
 function scoreForStars(n){return n>0?1000+500*(n-1)+200:0}
 function coinForStars(n){return [0,20,30,50][n]||0}
 function fmt(n){return Number(n||0).toLocaleString('ko-KR')}
@@ -397,6 +419,7 @@ function showLevels(world=stageHubWorld){
   for(const el of overlay.querySelectorAll('[data-lv]'))el.onclick=()=>loadLevel(Number(el.dataset.lv));
   [['stageShop','shop'],['stageRewards','rewards'],['stageSettings','settings']].forEach(([id,type])=>{
     document.getElementById(id).onclick=()=>{
+      if(type==='shop'){showShop('skin');return}
       showInfo(type);
       for(const btnId of ['infoClose','infoHome'])document.getElementById(btnId).onclick=()=>{busy=false;showLevels(stageHubWorld)};
       document.getElementById('infoBack').onclick=e=>{if(e.target.id==='infoBack'){busy=false;showLevels(stageHubWorld)}};
@@ -416,6 +439,59 @@ function showHome(){
     <div class="v81-grass v81-grass-left"></div><div class="v81-grass v81-grass-right"></div>
   </div></div>`;
   document.getElementById('homePlay').onclick=()=>showLevels(0);
+}
+
+const SHOP_PRODUCTS={
+ skin:[
+  {id:'basic',name:'기본 자석이',price:0,detail:'처음부터 함께해요',icon:'⭐'},
+  {id:'crown',name:'왕관 자석이',price:300,detail:'반짝이는 왕관 장식',icon:'👑'},
+  {id:'space',name:'우주 자석이',price:400,detail:'작은 우주 장식',icon:'🪐'},
+  {id:'explorer',name:'탐험가 자석이',price:400,detail:'나침반 장식',icon:'🧭'}
+ ],
+ theme:[
+  {id:'basic',name:'기본 보드',price:0,detail:'크림색 퍼즐판',base:'#d9b5aa',tile:'#fff9ef',edge:'#ffebdf'},
+  {id:'candy',name:'캔디 보드',price:300,detail:'달콤한 분홍색',base:'#f6aecb',tile:'#ffe3ec',edge:'#ffd4eb'},
+  {id:'space',name:'우주 보드',price:400,detail:'보랏빛 별나라',base:'#6758aa',tile:'#b6b4ec',edge:'#8f7bd3'},
+  {id:'forest',name:'숲속 보드',price:400,detail:'산뜻한 연두색',base:'#86bb8c',tile:'#d5f5c6',edge:'#b5e2ab'}
+ ]
+};
+function showShop(tab='skin'){
+ busy=false;
+ if(!['skin','theme','item'].includes(tab))tab='skin';
+ const products=tab==='item'?`<div class="shop85-items"><div class="shop85-item"><span class="shop85-item-icon">💡</span><div><strong>힌트</strong><p>현재 위치에서 다음 행동 추천</p></div><span class="shop85-coming">V9 예정</span></div><div class="shop85-item"><span class="shop85-item-icon">🧲</span><div><strong>극성 리모컨</strong><p>구슬 한 개의 극을 바꾸는 도구</p></div><span class="shop85-coming">V9 예정</span></div><div class="shop85-item"><span class="shop85-item-icon">✨</span><div><strong>자력 부스터</strong><p>구슬 하나를 원하는 방향으로 밀기</p></div><span class="shop85-coming">V9 예정</span></div></div>`:SHOP_PRODUCTS[tab].map(product=>{
+ const owned=saved.shopOwned[tab].includes(product.id);
+ const active=(tab==='skin'?saved.equippedSkin:saved.equippedTheme)===product.id;
+ const enough=saved.coins>=product.price;
+ const btnText=active?'✓ 적용 중':owned?'적용하기':`✦ ${fmt(product.price)}`;
+ const preview=tab==='skin'?`<div class="shop85-preview"><img src="assets/jaseogi.png" alt="자석이"><span class="shop85-ornament" aria-hidden="true">${product.id==='basic'?'':product.icon}</span></div>`:`<div class="shop85-theme-preview" style="--preview-base:${product.base};--preview-tile:${product.tile};--preview-edge:${product.edge}" aria-hidden="true">${'<i></i>'.repeat(9)}</div>`;
+ return `<article class="shop85-card ${active?'equipped':''}">${preview}<h3>${product.name}</h3><small>${product.detail}</small><button class="shop85-buy ${active?'equipped':owned?'owned':''}" data-category="${tab}" data-product="${product.id}" ${active?'disabled':''} aria-label="${product.name} ${btnText}">${btnText}</button></article>`
+ }).join('');
+ const subtitle=tab==='skin'?'자석이에게 작은 장식을 선물하세요!':tab==='theme'?'퍼즐판의 분위기를 바꿔보세요!':'퍼즐 아이템은 V9에서 만나요!';
+ overlay.innerHTML=`<section class="shop85" role="dialog" aria-modal="true" aria-label="자석콩 상점"><div class="shop85-inner">
+ <header class="shop85-top"><button class="shop85-back" id="shop85Back" aria-label="스테이지 선택으로">‹</button><strong class="shop85-title">🛍️ 자석콩 상점</strong><div class="shop85-wallet" aria-label="보유 코인">🪙 ${fmt(saved.coins)}</div></header>
+ <div class="shop85-hero"><img class="shop85-mascot" src="assets/jaseogi.png" alt="자석이"><div class="shop85-talk">자석콩을 더 특별하게 꾸며보세요! ✨</div></div>
+ <nav class="shop85-tabs" aria-label="상점 카테고리"><button data-tab="skin" class="shop85-tab ${tab==='skin'?'active':''}">👕 스킨</button><button data-tab="theme" class="shop85-tab ${tab==='theme'?'active':''}">▦ 보드 테마</button><button data-tab="item" class="shop85-tab ${tab==='item'?'active':''}">💡 아이템</button></nav>
+ <section class="shop85-panel"><h2>${tab==='skin'?'자석이 스킨':tab==='theme'?'보드 테마':'퍼즐 아이템'}</h2><p class="shop85-desc">${subtitle}</p><div class="${tab==='item'?'':'shop85-products'}">${products}</div></section>
+ <p class="shop85-note">구매한 꾸미기는 영구 보유하고 언제든 무료로 교체할 수 있어요.<br>코인과 보유 기록은 이 브라우저에 저장돼요.</p>
+ </div></section>`;
+ document.getElementById('shop85Back').onclick=()=>showLevels(stageHubWorld);
+ for(const button of overlay.querySelectorAll('[data-tab]'))button.onclick=()=>showShop(button.dataset.tab);
+ for(const button of overlay.querySelectorAll('[data-product]'))button.onclick=()=>buyOrEquip(button.dataset.category,button.dataset.product);
+}
+function buyOrEquip(category,id){
+ const product=SHOP_PRODUCTS[category]?.find(item=>item.id===id);
+ if(!product)return;
+ if(!saved.shopOwned[category].includes(id)){
+  if(saved.coins<product.price){toast('코인이 부족해요! 퍼즐에서 별을 모아보세요.');return}
+  // Purchase and item ownership are committed together before refreshing the UI.
+  saved.coins-=product.price;
+  saved.shopOwned[category].push(id);
+  save();
+  toast(product.name+' 구매 완료!');
+ }
+ if(category==='skin')saved.equippedSkin=id;
+ else saved.equippedTheme=id;
+ applyCosmetics();save();showShop(category);
 }
 function showInfo(type){
   const contents={
