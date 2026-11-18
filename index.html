@@ -268,6 +268,17 @@ body[data-board-theme="forest"] .game-shell .board{background:#86bb8c}body[data-
 .v10-bonus strong{display:block;margin-bottom:5px}.v10-bonus p{font-size:12px;margin:5px 0 12px;color:#846a8f}
 .v10-foot{text-align:center;font-size:12px;line-height:1.6;color:#81689f;margin:18px 6px}
 @media(max-width:370px){.v10-mission{grid-template-columns:38px 1fr auto;gap:7px;padding:12px 9px}.v10-mission-icon{width:36px;height:36px}.v10-action{min-width:68px}}
+
+/* V11 settings: small toggle UI matching stage hub palette */
+.v11-caption{font-weight:700;color:#927bb8;font-size:13px;margin:4px 0 14px}
+.v11-settings{display:grid;gap:11px;margin:16px 0}
+.v11-setting{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#f6efff;border:2px solid #e9d8ff;border-radius:17px;padding:13px 12px;color:#60428e}
+.v11-setting strong{display:block;font-size:16px}.v11-setting small{display:block;margin-top:4px;color:#8c76ae;font-size:11px;line-height:1.5}
+.v11-switch{flex:none;position:relative;width:58px;height:34px;border:2px solid #c9b8e4;background:#c9c1d5;border-radius:99px;padding:2px;transition:background .15s,border-color .15s;cursor:pointer}
+.v11-switch span{display:block;width:25px;height:25px;border-radius:50%;background:#fff;box-shadow:0 2px 4px #5a397749;transition:transform .15s}
+.v11-switch.is-on{background:#8e5bd7;border-color:#7c4dbd}.v11-switch.is-on span{transform:translateX(23px)}
+.v11-switch:focus-visible{outline:3px solid #ffcb4c;outline-offset:3px}
+.v11-note{font-size:12px;color:#85749c;line-height:1.6}
 </style>
 </head>
 <body>
@@ -305,7 +316,7 @@ const DIRS=[[-1,0],[0,1],[1,0],[0,-1]];
 const board=document.getElementById('board'),overlay=document.getElementById('overlay');
 let levelIndex=0, state,history=[],busy=false,lock=false,assistedRun=false,hintUsedRun=false,itemMode=null,itemSelection=null;
 const SAVE_KEY='magnetkong-save';
-let saved={unlocked:1,stars:{},coins:0,bestScores:{},bestTurns:{},totalScore:0,saveVersion:8,shopOwned:{skin:["basic"],theme:["basic"]},equippedSkin:"basic",equippedTheme:"basic",inventory:{hint:0,remote:0,booster:0},assistedClears:{},daily:{}};
+let saved={unlocked:1,stars:{},coins:0,bestScores:{},bestTurns:{},totalScore:0,saveVersion:8,shopOwned:{skin:["basic"],theme:["basic"]},equippedSkin:"basic",equippedTheme:"basic",inventory:{hint:0,remote:0,booster:0},assistedClears:{},daily:{},preferences:{sound:true,haptic:true}};
 try{
   const raw=JSON.parse(localStorage.getItem(SAVE_KEY)||'{}');
   if(raw&&typeof raw==='object'){
@@ -320,6 +331,7 @@ try{
       const i=Number(k);if(Number.isInteger(i)&&i>=0&&i<LEVELS.length&&Number(v)>0)saved.bestTurns[i]=Math.floor(Number(v));
     }
     saved.coins=Math.max(0,Math.floor(Number(raw.coins)||0));
+    if(raw.preferences&&typeof raw.preferences==='object'){saved.preferences.sound=raw.preferences.sound!==false;saved.preferences.haptic=raw.preferences.haptic!==false;}
     if(raw.daily&&typeof raw.daily==='object'&&/^\d{4}-\d{2}-\d{2}$/.test(raw.daily.date||'')){
       saved.daily={date:raw.daily.date,cleared:Array.isArray(raw.daily.cleared)?raw.daily.cleared.filter(x=>Number.isInteger(x)&&x>=0&&x<LEVELS.length).slice(0,20):[],noHint:!!raw.daily.noHint,threeStar:!!raw.daily.threeStar,claimed:Array.isArray(raw.daily.claimed)?raw.daily.claimed.filter(x=>['clear','noHint','threeStar','bonus'].includes(x)):[]};
     }
@@ -362,6 +374,54 @@ function awardClear(stars){
   save();updateHud();
   return {gainedCoins,gainedScore,prev,newStars:nextStars};
 }
+// V11 — lightweight synthesized SFX. No audio files or network access needed.
+// Safari/iOS only allows AudioContext after a user interaction.
+let audioCtx=null;
+function sfx(kind){
+ if(!saved.preferences.sound)return;
+ try{
+  const Context=window.AudioContext||window.webkitAudioContext;
+  if(!Context)return;
+  if(!audioCtx)audioCtx=new Context();
+  if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});
+  const now=audioCtx.currentTime;
+  const patterns={
+   step:[[360,460,.065,'sine',.035]],
+   flip:[[370,650,.11,'triangle',.065],[650,820,.08,'sine',.025]],
+   pull:[[510,360,.12,'sine',.037]],
+   push:[[310,230,.10,'triangle',.035]],
+   goal:[[690,920,.11,'sine',.075],[920,1160,.13,'sine',.045]],
+   win:[[520,520,.1,'sine',.07],[660,660,.12,'sine',.065],[790,1030,.23,'sine',.075]],
+   click:[[480,410,.07,'sine',.025]],
+   buy:[[510,710,.08,'sine',.04],[740,920,.12,'sine',.05]],
+   denied:[[260,200,.11,'triangle',.035]]
+  };
+  const notes=patterns[kind];if(!notes)return;
+  let offset=0;
+  for(const [start,end,duration,wave,volume] of notes){
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=now+offset;
+    o.type=wave;o.frequency.setValueAtTime(start,t);o.frequency.exponentialRampToValueAtTime(end,t+duration);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(volume,t+.012);
+    g.gain.exponentialRampToValueAtTime(.0001,t+duration);
+    o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.015);
+    offset+=kind==='win'?.09:kind==='buy'?.075:0;
+  }
+ }catch(e){/* Audio is optional; never block a puzzle action. */}
+}
+function haptic(pattern=9){if(saved.preferences.haptic&&typeof navigator.vibrate==='function')try{navigator.vibrate(pattern)}catch(e){}}
+function changePreference(key,on){
+ if(!['sound','haptic'].includes(key))return;
+ saved.preferences[key]=!!on;save();
+ const el=document.getElementById('pref-'+key);
+ if(el){el.setAttribute('aria-checked',String(!!on));el.classList.toggle('is-on',!!on)}
+ if(key==='sound'&&on)sfx('buy');
+ if(key==='haptic'&&on)haptic(18);
+}
+function settingsMarkup(){return `<h2>⚙️ 게임 설정</h2><p class="v11-caption">나에게 맞는 플레이 환경으로 바꿔 보세요.</p>
+ <div class="v11-settings">
+ <div class="v11-setting"><div><strong>🎵 효과음</strong><small>자석 이동 · 극성 전환 · 구슬 · 클리어</small></div><button type="button" role="switch" aria-label="효과음" aria-checked="${saved.preferences.sound}" class="v11-switch ${saved.preferences.sound?'is-on':''}" id="pref-sound"><span></span></button></div>
+ <div class="v11-setting"><div><strong>📳 진동</strong><small>움직임 · 구멍 성공 · 클리어</small></div><button type="button" role="switch" aria-label="진동" aria-checked="${saved.preferences.haptic}" class="v11-switch ${saved.preferences.haptic?'is-on':''}" id="pref-haptic"><span></span></button></div>
+ </div><p class="v11-note">설정은 이 기기에 자동 저장돼요. iPhone에서는 웹 브라우저 정책에 따라 진동이 지원되지 않을 수 있어요.</p><div class="tutorial-card">🧲 한 번에 한 칸 이동하거나 극성을 바꿔 구슬을 구멍에 넣어주세요.<br>❤️ 하트 제한 없이 자유롭게 플레이할 수 있어요.</div>`}
 function initial(l){return {player:l.player,mag:l.mag,balls:l.balls.slice(),pols:l.pols.slice(),filled:[],moves:0}}
 function copy(s){return {player:s.player,mag:s.mag,balls:s.balls.slice(),pols:s.pols.slice(),filled:s.filled.slice(),moves:s.moves}}
 function position(element,pos){element.style.setProperty('--row',Math.floor(pos/6));element.style.setProperty('--col',pos%6)}
@@ -403,12 +463,13 @@ function act(action){if(busy||lock||itemMode){if(itemMode)toast('아이템 선�
 const newly=state.filled.filter(i=>!before.filled.includes(i));
 if(output.active.length>=2)effectAt('multi-pop',null,`${output.active.length}개 동시 반응!`);
 if(newly.length){setTimeout(()=>{for(const i of newly)effectAt('burst',state.balls[i],'✓')},120)}
-if(navigator.vibrate)navigator.vibrate(newly.length?[14,35,18]:8);
+sfx(newly.length?'goal':action===4?'flip':output.active.length?'pull':'step');haptic(newly.length?[14,35,18]:8);
 setTimeout(()=>{busy=false;render(true);if(state.filled.length===LEVELS[levelIndex].balls.length){lock=true;setTimeout(showWin,250)}},165)}
-function undo(){if(!history.length||busy||lock||itemMode)return;state=history.pop();render();renderItemButtons()}
-function reset(){if(busy)return;state=initial(LEVELS[levelIndex]);history=[];lock=false;hintUsedRun=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();render();renderItemButtons()}
+function undo(){if(!history.length||busy||lock||itemMode)return;sfx('click');state=history.pop();render();renderItemButtons()}
+function reset(){if(busy)return;sfx('click');state=initial(LEVELS[levelIndex]);history=[];lock=false;hintUsedRun=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();render();renderItemButtons()}
 function starCount(){const ideal=LEVELS[levelIndex].optimal;return state.moves<=ideal+1?3:state.moves<=ideal+4?2:1}
 function showWin(){
+  sfx('win');haptic([25,45,30]);
   const stars=starCount();
   const missionUpdates=recordDailyClear(stars);
   const reward=assistedRun?(saved.assistedClears[levelIndex]=true,saved.unlocked=Math.max(saved.unlocked,Math.min(levelIndex+2,LEVELS.length)),save(),{gainedCoins:0,gainedScore:0,prev:saved.stars[levelIndex]||0,newStars:saved.stars[levelIndex]||0}):awardClear(stars);
@@ -466,7 +527,7 @@ function claimDaily(id){
    if(!m||dailyProgress(id)<m.target)return;
    amount=m.reward;
  }
- d.claimed.push(id);saved.coins+=amount;save();updateHud();showDailyRewards();toast(`🎁 ${amount}코인 받았어요!`);
+ d.claimed.push(id);saved.coins+=amount;save();updateHud();sfx('buy');haptic(12);showDailyRewards();toast(`🎁 ${amount}코인 받았어요!`);
 }
 function showDailyRewards(){
  const d=todayDaily();
@@ -658,7 +719,7 @@ function useRemote(){
  if(itemMode!=='remote'||itemSelection===null||busy||lock)return;
  if(!consumeSpecial('remote')){cancelItem();return}
  history.push(copy(state));state.pols[itemSelection]=1-state.pols[itemSelection];
- itemMode=null;itemSelection=null;renderItemMode();render();renderItemButtons();toast('🧲 구슬의 극이 바뀌었어요!');
+ itemMode=null;itemSelection=null;renderItemMode();render();renderItemButtons();sfx('flip');haptic(12);toast('🧲 구슬의 극이 바뀌었어요!');
 }
 function useBooster(dir){
  if(itemMode!=='booster'||itemSelection===null||busy||lock)return;
@@ -673,17 +734,18 @@ function useBooster(dir){
  if(!consumeSpecial('booster')){cancelItem();return}
  history.push(copy(state));state.balls[i]=next;
  if(lvl.goals.includes(next)&&!state.filled.some(j=>state.balls[j]===next))state.filled.push(i);
- itemMode=null;itemSelection=null;renderItemMode();render(true,[i]);renderItemButtons();toast('⚡ 자력 부스터 사용!');
+ itemMode=null;itemSelection=null;renderItemMode();render(true,[i]);renderItemButtons();sfx('push');haptic([12,24,12]);toast('⚡ 자력 부스터 사용!');
  if(state.filled.length===lvl.balls.length){busy=true;lock=true;setTimeout(()=>{busy=false;showWin()},300)}
 }
 function showInfo(type){
   const contents={
-    settings:`<h2>⚙ 게임 안내</h2><p>자석콩 V8.1은 홈 화면 디자인을 새로 적용한 버전이에요.</p><div class="tutorial-card">🧲 자석을 한 칸 움직이거나 N/S극을 바꿔 구슬을 구멍에 넣어주세요.<br>❤️ 하트 제한 없이 자유롭게 플레이할 수 있어요.<br>💾 기록은 이 브라우저에 자동 저장돼요.</div><p>효과음과 진동 개별 설정은 추후 추가할 예정이에요.</p>`,
+    settings:settingsMarkup(),
     rewards:`<h2>🎁 보상 안내</h2><p>한 스테이지에서 획득한 최고 별 등급만큼 코인을 받아요.</p><div class="tutorial-card">⭐ 1성: 총 20코인<br>⭐⭐ 2성: 총 30코인<br>⭐⭐⭐ 3성: 총 50코인</div><p>1성에서 3성으로 갱신하면 차액 30코인을 추가로 받아요. 이미 얻은 보상은 중복되지 않아요.</p><div class="tutorial-card">점수: 1성 1,200점 · 2성 1,700점 · 3성 2,200점<br>점수는 스테이지별 최고 기록만 합산돼요.</div>`,
     shop:`<h2>🛍️ 상점 준비 중</h2><p>코인을 모아두세요! 다음 버전에서는 힌트와 자석 아이템을 추가할 예정이에요.</p><div class="tutorial-card">🪙 현재 보유: ${fmt(saved.coins)}코인<br>💡 힌트 · 🧲 극성 리모컨 · ✨ 자력 부스터 (추후 도입)</div><p>이번 V8에는 구매나 차감 기능이 없어요.</p>`,
     records:`<h2>📊 나의 기록</h2><div class="v8-inline"><span>🏆 누적 점수</span><strong>${fmt(saved.totalScore)}점</strong></div><div class="v8-inline"><span>⭐ 획득 별</span><strong>${fmt(starTotal())}개</strong></div><div class="v8-inline"><span>🧩 클리어 단계</span><strong>${completedCount()}/${LEVELS.length}</strong></div><div class="v8-inline"><span>🪙 보유 코인</span><strong>${fmt(saved.coins)}개</strong></div><p>최고 기록은 이 브라우저에 자동 저장돼요. 앱 데이터를 삭제하거나 다른 기기로 옮기면 기록이 공유되지 않아요.</p>`
   };
   overlay.innerHTML=`<div class="modal-back" id="infoBack"><div class="modal v8-info"><button class="close" id="infoClose" aria-label="닫기">✕</button>${contents[type]}<div class="modal-actions"><button class="primary" id="infoHome">홈으로</button></div></div></div>`;
+  if(type==='settings'){for(const key of ['sound','haptic'])document.getElementById('pref-'+key).onclick=()=>changePreference(key,!saved.preferences[key])}
   document.getElementById('infoClose').onclick=showHome;
   document.getElementById('infoHome').onclick=showHome;
   document.getElementById('infoBack').onclick=e=>{if(e.target.id==='infoBack')showHome()};
