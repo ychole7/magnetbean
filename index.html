@@ -246,6 +246,28 @@ body[data-board-theme="forest"] .game-shell .board{background:#86bb8c}body[data-
 .v9-shop-item{display:grid;grid-template-columns:38px 1fr auto;gap:8px;align-items:center;background:#fff;border:2px solid #ead4fa;border-radius:17px;padding:11px 9px;margin-bottom:9px}.v9-shop-item .v9-big{font-size:29px}.v9-shop-item strong{font-size:15px}.v9-shop-item p{font-size:11px;color:#9b83b2;margin:4px 0}.v9-shop-item small{font-size:10px;color:#7a57a5}.v9-shop-buy{border-radius:13px;padding:9px 10px;background:linear-gradient(#ffe889,#ffba3c);border:1px solid #ffdf99;color:#684389;font-weight:1000;font-size:12px;white-space:nowrap;box-shadow:0 3px 0 #d99f46}
 .v9-shop-buy:disabled{opacity:.55}.v9-assist{margin:4px auto 8px;padding:7px 10px;border-radius:12px;background:#f5e8ff;color:#7b4aab;font-size:12px;font-weight:900}
 @media(max-width:370px){.v9-item{font-size:11px;min-height:57px}.v9-item .v9-icon{font-size:19px}.game-help{margin-top:9px}}
+
+/* V10 daily mission reward center */
+.v10-rewards{position:fixed;inset:0;z-index:100;overflow-y:auto;background:radial-gradient(circle at 50% 5%,#fff4ff,#e8d9fb 65%,#d8caf5);padding:20px 15px 34px;color:#623a96;font-family:inherit}
+.v10-wrap{max-width:540px;margin:0 auto}
+.v10-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:16px}
+.v10-back{border:0;border-radius:16px;color:#fff;font-size:28px;background:linear-gradient(155deg,#b68bf9,#7248bc);width:48px;height:48px;box-shadow:0 5px 0 #5a359d}
+.v10-wallet{background:#fff;border:2px solid #d6bbfc;border-radius:25px;padding:9px 14px;font-weight:950;font-size:16px}
+.v10-title{font-size:25px;font-weight:1000;margin:0;text-shadow:0 2px #fff}
+.v10-hero{background:linear-gradient(145deg,#a97bed,#7d54cc);border:3px solid #fff;border-radius:25px;padding:21px 18px;margin-bottom:16px;box-shadow:0 7px 0 #c5a4e7;color:#fff;position:relative;overflow:hidden}
+.v10-hero:after{content:'✦ ✧ ✦';position:absolute;right:6px;top:12px;color:#ffe277;opacity:.75;font-size:25px}
+.v10-hero strong{display:block;font-size:23px;margin-bottom:6px}.v10-hero p{margin:0;line-height:1.6;font-size:13px;font-weight:700;color:#f6ecff}
+.v10-date{font-size:12px;font-weight:900;margin:10px 0 0;color:#ffeb9b}
+.v10-mission{background:#fffcff;border:2px solid #dfc8f5;border-radius:19px;padding:15px;margin:12px 0;display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:10px;box-shadow:0 4px 0 #d3b7e8}
+.v10-mission-icon{width:44px;height:44px;border-radius:14px;background:#f1e8ff;display:grid;place-items:center;font-size:26px}
+.v10-mission-info strong{font-size:15px;display:block}.v10-mission-info small{display:block;color:#9a82b1;font-size:11px;margin:4px 0 7px}
+.v10-track{height:8px;border-radius:10px;background:#eee1fa;overflow:hidden}.v10-track>i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#ffbd43,#f88d59)}
+.v10-action{border:0;border-radius:14px;min-width:79px;padding:10px 8px;font-weight:1000;color:#654091;background:linear-gradient(#ffe986,#ffbb42);box-shadow:0 3px 0 #da9d36;font-size:12px}
+.v10-action:disabled{color:#9b8ab0;background:#ece5f0;box-shadow:none}.v10-action.claimed{color:#389e71;background:#ddf7e8}
+.v10-bonus{margin:18px 0;background:#fff4da;border:2px solid #f7d78a;border-radius:17px;padding:17px;text-align:center}
+.v10-bonus strong{display:block;margin-bottom:5px}.v10-bonus p{font-size:12px;margin:5px 0 12px;color:#846a8f}
+.v10-foot{text-align:center;font-size:12px;line-height:1.6;color:#81689f;margin:18px 6px}
+@media(max-width:370px){.v10-mission{grid-template-columns:38px 1fr auto;gap:7px;padding:12px 9px}.v10-mission-icon{width:36px;height:36px}.v10-action{min-width:68px}}
 </style>
 </head>
 <body>
@@ -281,9 +303,9 @@ const TITLES=["첫 번째 끌림","방향을 찾아서","구슬의 여행","극�
 const DESCRIPTIONS=["다른 극끼리는 끌어당겨요.","같은 극끼리는 밀어내요.","벽에 닿으면 구슬이 멈춰요.","N과 S를 바꿔서 길을 찾아요.","모든 구슬을 구멍에 넣어보세요.","극이 다른 두 구슬을 조심하세요.","벽과 구슬의 위치를 활용하세요.","여러 구슬의 반응을 예측하세요.","적은 턴으로 클리어해 보세요.","마지막 실험에 도전하세요!","같은 행동이라도 위치에 따라 결과가 달라져요.","구슬 두 개의 움직임을 함께 생각하세요.","벽이 멈추는 지점을 만들어 줘요.","먼저 움직일 구슬을 골라보세요.","N과 S의 조합으로 길을 열어요.","이제 세 구슬을 모두 넣어보세요!","서로 가로막지 않도록 순서를 정해요.","한 번의 펄스가 여러 구슬을 움직여요.","막혔다면 극을 바꾸고 다시 생각해요.","세 구슬을 모두 넣고 연구를 완성하세요!"];
 const DIRS=[[-1,0],[0,1],[1,0],[0,-1]];
 const board=document.getElementById('board'),overlay=document.getElementById('overlay');
-let levelIndex=0, state,history=[],busy=false,lock=false,assistedRun=false,itemMode=null,itemSelection=null;
+let levelIndex=0, state,history=[],busy=false,lock=false,assistedRun=false,hintUsedRun=false,itemMode=null,itemSelection=null;
 const SAVE_KEY='magnetkong-save';
-let saved={unlocked:1,stars:{},coins:0,bestScores:{},bestTurns:{},totalScore:0,saveVersion:8,shopOwned:{skin:["basic"],theme:["basic"]},equippedSkin:"basic",equippedTheme:"basic",inventory:{hint:0,remote:0,booster:0},assistedClears:{}};
+let saved={unlocked:1,stars:{},coins:0,bestScores:{},bestTurns:{},totalScore:0,saveVersion:8,shopOwned:{skin:["basic"],theme:["basic"]},equippedSkin:"basic",equippedTheme:"basic",inventory:{hint:0,remote:0,booster:0},assistedClears:{},daily:{}};
 try{
   const raw=JSON.parse(localStorage.getItem(SAVE_KEY)||'{}');
   if(raw&&typeof raw==='object'){
@@ -298,6 +320,9 @@ try{
       const i=Number(k);if(Number.isInteger(i)&&i>=0&&i<LEVELS.length&&Number(v)>0)saved.bestTurns[i]=Math.floor(Number(v));
     }
     saved.coins=Math.max(0,Math.floor(Number(raw.coins)||0));
+    if(raw.daily&&typeof raw.daily==='object'&&/^\d{4}-\d{2}-\d{2}$/.test(raw.daily.date||'')){
+      saved.daily={date:raw.daily.date,cleared:Array.isArray(raw.daily.cleared)?raw.daily.cleared.filter(x=>Number.isInteger(x)&&x>=0&&x<LEVELS.length).slice(0,20):[],noHint:!!raw.daily.noHint,threeStar:!!raw.daily.threeStar,claimed:Array.isArray(raw.daily.claimed)?raw.daily.claimed.filter(x=>['clear','noHint','threeStar','bonus'].includes(x)):[]};
+    }
     for(const kind of ['hint','remote','booster'])saved.inventory[kind]=Math.max(0,Math.min(999,Math.floor(Number(raw.inventory?.[kind])||0)));
     if(raw.assistedClears&&typeof raw.assistedClears==='object')for(const [key,v] of Object.entries(raw.assistedClears))if(Number.isInteger(Number(key))&&Number(key)>=0&&Number(key)<LEVELS.length&&v===true)saved.assistedClears[key]=true;
     const validSkin=['basic','crown','space','explorer'],validTheme=['basic','candy','space','forest'];
@@ -342,7 +367,7 @@ function copy(s){return {player:s.player,mag:s.mag,balls:s.balls.slice(),pols:s.
 function position(element,pos){element.style.setProperty('--row',Math.floor(pos/6));element.style.setProperty('--col',pos%6)}
 let pieces=[];
 function createPiece(kind,index,pol){let el=document.createElement('div');el.className='piece '+(kind==='player'?'player':'ball');if(kind==='player')el.innerHTML=MASCOT_SVG;else el.innerHTML=`<div class="orb ${pol?'s':'n'}">${pol?'S':'N'}</div>`;el.dataset.index=index;if(kind==='player')el.setAttribute('aria-label','자석이 캐릭터 · 탭하여 극 바꾸기');document.getElementById('pieces').append(el);pieces.push(el);if(kind==='player')el.addEventListener('click',e=>{e.stopPropagation();if(!itemMode)act(4)});return el}
-function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;assistedRun=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();document.getElementById('world').textContent='WORLD 01 · 자력 실험실';document.getElementById('stageNum').textContent=idx+1;document.getElementById('turnTarget').textContent=' / '+LEVELS[idx].optimal;document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,state.pols[i]));render(false)}
+function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;assistedRun=false;hintUsedRun=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();document.getElementById('world').textContent='WORLD 01 · 자력 실험실';document.getElementById('stageNum').textContent=idx+1;document.getElementById('turnTarget').textContent=' / '+LEVELS[idx].optimal;document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,state.pols[i]));render(false)}
 function render(animated=true,activated=[]){document.getElementById('moves').textContent=state.moves;const predicted=state.moves<=LEVELS[levelIndex].optimal+1?3:state.moves<=LEVELS[levelIndex].optimal+4?2:1;const meter=document.getElementById('starMeter');meter.setAttribute('aria-label','현재 예상 별 '+predicted+'개');[...meter.children].forEach((star,i)=>star.classList.toggle('lost',i>=predicted));document.getElementById('undo').disabled=!history.length||busy;const els=board.querySelectorAll('.cell');els.forEach((el,i)=>{el.classList.toggle('filled',state.filled.some(j=>state.balls[j]===i))});pieces.forEach((el,i)=>{const isPlayer=i===0;const ballIdx=i-1;if(!animated)el.style.transition='none';position(el,isPlayer?state.player:state.balls[ballIdx]);el.classList.toggle('disappear',!isPlayer&&state.filled.includes(ballIdx));el.classList.toggle('activated',!isPlayer&&activated.includes(ballIdx));if(!isPlayer){const orb=el.querySelector('.orb');orb.classList.toggle('s',state.pols[ballIdx]===1);orb.classList.toggle('n',state.pols[ballIdx]===0);orb.textContent=state.pols[ballIdx]?'S':'N';el.classList.toggle('v9-target',itemMode!==null&&!state.filled.includes(ballIdx)&&itemSelection===ballIdx)}if(isPlayer){el.classList.toggle('pole-s',state.mag===1);el.classList.toggle('pole-n',state.mag===0)}if(!animated)requestAnimationFrame(()=>el.style.transition='')});renderItemButtons()}
 function nextState(s,action,level){const t=copy(s),walls=new Set(level.walls),goals=new Set(level.goals);if(action===4)t.mag=1-t.mag;else{let [dr,dc]=DIRS[action],r=Math.floor(t.player/6)+dr,c=t.player%6+dc;if(r<0||r>=6||c<0||c>=6)return null;const newpos=r*6+c;if(walls.has(newpos)||t.balls.some((x,i)=>!t.filled.includes(i)&&x===newpos))return null;t.player=newpos}t.moves++;
 const selected=[];for(const [dr,dc] of DIRS){let r=Math.floor(t.player/6)+dr,c=t.player%6+dc;while(r>=0&&r<6&&c>=0&&c<6){let pos=r*6+c;if(walls.has(pos))break;let i=t.balls.findIndex((x,j)=>x===pos&&!t.filled.includes(j));if(i!==-1){selected.push([i,dr,dc]);break}r+=dr;c+=dc}}
@@ -381,10 +406,11 @@ if(newly.length){setTimeout(()=>{for(const i of newly)effectAt('burst',state.bal
 if(navigator.vibrate)navigator.vibrate(newly.length?[14,35,18]:8);
 setTimeout(()=>{busy=false;render(true);if(state.filled.length===LEVELS[levelIndex].balls.length){lock=true;setTimeout(showWin,250)}},165)}
 function undo(){if(!history.length||busy||lock||itemMode)return;state=history.pop();render();renderItemButtons()}
-function reset(){if(busy)return;state=initial(LEVELS[levelIndex]);history=[];lock=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();render();renderItemButtons()}
+function reset(){if(busy)return;state=initial(LEVELS[levelIndex]);history=[];lock=false;hintUsedRun=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();render();renderItemButtons()}
 function starCount(){const ideal=LEVELS[levelIndex].optimal;return state.moves<=ideal+1?3:state.moves<=ideal+4?2:1}
 function showWin(){
   const stars=starCount();
+  const missionUpdates=recordDailyClear(stars);
   const reward=assistedRun?(saved.assistedClears[levelIndex]=true,saved.unlocked=Math.max(saved.unlocked,Math.min(levelIndex+2,LEVELS.length)),save(),{gainedCoins:0,gainedScore:0,prev:saved.stars[levelIndex]||0,newStars:saved.stars[levelIndex]||0}):awardClear(stars);
   const isLast=levelIndex===LEVELS.length-1;
   const improved=!assistedRun&&stars>reward.prev;
@@ -398,6 +424,7 @@ function showWin(){
     <div class="v84-character"><span class="v84-spark s1">✦</span><span class="v84-spark s2">✦</span><span class="v84-spark s3">✦</span><img src="assets/jaseogi.png" alt="기뻐하는 자석이"></div>
     <div class="v84-reward"><span class="v84-coin" aria-hidden="true">★</span><span>획득 코인</span><strong>+${fmt(reward.gainedCoins)}</strong></div>
     <div class="v84-record"><div class="v84-record-title">✦ 이번 스테이지 기록 ✦</div><div class="v84-record-grid"><div class="v84-record-item"><span>이동 횟수</span><strong>${state.moves}턴</strong><small>최소 ${LEVELS[levelIndex].optimal}턴</small></div><div class="v84-record-item"><span>최고 점수</span><strong>${fmt(saved.bestScores[levelIndex])}점</strong><small>이번 추가 +${fmt(reward.gainedScore)}점</small></div></div>${improved||newTurnRecord?`<span class="v84-record-badge">🏆 ${congratulation}</span>`:''}</div>
+    ${missionUpdates.length?`<p class="v84-reward-caption">🎁 일일 미션 진행! ${missionUpdates.join(" · ")}</p>`:""}
     <p class="v84-reward-caption">${assistedRun?'특수 아이템 사용 판은 별·코인·일반 최단 턴 기록에서 제외돼요.':reward.gainedCoins?'별 기록 갱신 보상이 지급됐어요!':'이미 획득한 코인은 중복 지급되지 않아요.'} · 보유 ${fmt(saved.coins)}코인</p>
     <div class="v84-actions"><button type="button" class="v84-retry" id="winRetry">↻ 다시하기</button><button type="button" class="v84-next" id="winNext">▶ ${isLast?'스테이지 선택':'다음 스테이지'}</button></div>
     <button type="button" class="v84-back-levels" id="winLevels">스테이지 선택으로</button>
@@ -405,6 +432,52 @@ function showWin(){
   document.getElementById('winRetry').onclick=()=>loadLevel(levelIndex);
   document.getElementById('winNext').onclick=()=>isLast?showLevels(0):loadLevel(levelIndex+1);
   document.getElementById('winLevels').onclick=()=>{busy=false;showLevels(0)};
+}
+// V10: daily missions reset at midnight Korean Standard Time. No retroactive credit.
+const DAILY_MISSIONS=[
+ {id:'clear',icon:'🧩',title:'퍼즐 두 판 해결',detail:'서로 다른 스테이지 2개 클리어',target:2,reward:30},
+ {id:'noHint',icon:'💡',title:'내 힘으로 해결',detail:'힌트 없이 스테이지 클리어',target:1,reward:40},
+ {id:'threeStar',icon:'⭐',title:'별 세 개 도전',detail:'특수 아이템 없이 3성 클리어',target:1,reward:50}
+];
+function koreaDay(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
+function todayDaily(){
+ const date=koreaDay();
+ if(saved.daily.date!==date){saved.daily={date,cleared:[],noHint:false,threeStar:false,claimed:[]};save()}
+ return saved.daily;
+}
+function dailyProgress(id){const d=todayDaily();return id==='clear'?d.cleared.length:id==='noHint'?Number(d.noHint):Number(d.threeStar)}
+function recordDailyClear(stars){
+ const d=todayDaily(),prior=[dailyProgress('clear'),dailyProgress('noHint'),dailyProgress('threeStar')];
+ if(!d.cleared.includes(levelIndex))d.cleared.push(levelIndex);
+ if(!hintUsedRun)d.noHint=true;
+ if(!assistedRun&&stars===3)d.threeStar=true;
+ save();
+ const now=[dailyProgress('clear'),dailyProgress('noHint'),dailyProgress('threeStar')];
+ return DAILY_MISSIONS.filter((m,i)=>now[i]>prior[i]).map(m=>m.title);
+}
+function claimDaily(id){
+ const d=todayDaily();if(d.claimed.includes(id))return;
+ let amount=0;
+ if(id==='bonus'){
+   if(!DAILY_MISSIONS.every(m=>d.claimed.includes(m.id)))return;
+   amount=50;
+ }else{
+   const m=DAILY_MISSIONS.find(m=>m.id===id);
+   if(!m||dailyProgress(id)<m.target)return;
+   amount=m.reward;
+ }
+ d.claimed.push(id);saved.coins+=amount;save();updateHud();showDailyRewards();toast(`🎁 ${amount}코인 받았어요!`);
+}
+function showDailyRewards(){
+ const d=todayDaily();
+ const rows=DAILY_MISSIONS.map(m=>{
+  const progress=Math.min(m.target,dailyProgress(m.id)),done=progress>=m.target,claimed=d.claimed.includes(m.id);
+  return `<article class="v10-mission"><span class="v10-mission-icon">${m.icon}</span><div class="v10-mission-info"><strong>${m.title}</strong><small>${m.detail} · ${progress}/${m.target}</small><div class="v10-track"><i style="width:${progress/m.target*100}%"></i></div></div><button class="v10-action ${claimed?'claimed':''}" data-claim="${m.id}" ${!done||claimed?'disabled':''}>${claimed?'✓ 수령':done?'🪙 +'+m.reward:'+'+m.reward+' 코인'}</button></article>`;
+ }).join('');
+ const bonusReady=DAILY_MISSIONS.every(m=>d.claimed.includes(m.id)),bonusClaimed=d.claimed.includes('bonus');
+ overlay.innerHTML=`<section class="v10-rewards" role="dialog" aria-modal="true" aria-label="오늘의 미션"><div class="v10-wrap"><header class="v10-top"><button class="v10-back" id="dailyBack" aria-label="스테이지 선택으로">‹</button><h1 class="v10-title">🎁 오늘의 보상</h1><span class="v10-wallet">🪙 ${fmt(saved.coins)}</span></header><div class="v10-hero"><strong>오늘도 자석콩! ✨</strong><p>퍼즐을 즐기고 코인을 모아 보세요.<br>하트 제한 없이 자유롭게 도전할 수 있어요.</p><div class="v10-date">${d.date} · 매일 자정(KST) 초기화</div></div>${rows}<div class="v10-bonus"><strong>🎉 미션 3개 모두 달성 보너스</strong><p>세 가지 보상을 모두 받은 뒤 추가 50코인!</p><button class="v10-action ${bonusClaimed?'claimed':''}" data-claim="bonus" ${!bonusReady||bonusClaimed?'disabled':''}>${bonusClaimed?'✓ 수령 완료':'🪙 +50 받기'}</button></div><p class="v10-foot">완료했던 스테이지도 오늘 다시 플레이하면 미션에 반영돼요.<br>하루 한 번만 보상을 받을 수 있으며 기기의 저장 데이터에 기록돼요.</p></div></section>`;
+ document.getElementById('dailyBack').onclick=()=>showLevels(stageHubWorld);
+ for(const button of overlay.querySelectorAll('[data-claim]'))button.onclick=()=>claimDaily(button.dataset.claim);
 }
 let stageHubWorld=0;
 function showLevels(world=stageHubWorld){
@@ -434,6 +507,7 @@ function showLevels(world=stageHubWorld){
   [['stageShop','shop'],['stageRewards','rewards'],['stageSettings','settings']].forEach(([id,type])=>{
     document.getElementById(id).onclick=()=>{
       if(type==='shop'){showShop('skin');return}
+      if(type==='rewards'){showDailyRewards();return}
       showInfo(type);
       for(const btnId of ['infoClose','infoHome'])document.getElementById(btnId).onclick=()=>{busy=false;showLevels(stageHubWorld)};
       document.getElementById('infoBack').onclick=e=>{if(e.target.id==='infoBack'){busy=false;showLevels(stageHubWorld)}};
@@ -563,7 +637,7 @@ function useHint(){
  if(busy||lock||saved.inventory.hint<1)return;
  const a=solveNextAction();
  if(a===null||a===undefined){toast('지금 상태에서 해답을 찾지 못했어요. 되돌리기를 이용해 보세요');return}
- saved.inventory.hint--;save();renderItemButtons();
+ saved.inventory.hint--;hintUsedRun=true;save();renderItemButtons();
  const name=['위로 ↑','오른쪽으로 →','아래로 ↓','왼쪽으로 ←','극성 전환 ⇄'][a];
  document.getElementById('description').textContent=`💡 추천: ${name} (힌트 1개 사용)`;
  toast('💡 다음 행동: '+name);
