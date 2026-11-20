@@ -281,18 +281,20 @@ body[data-board-theme="forest"] .game-shell .board{background:#86bb8c}body[data-
 .v11-switch:focus-visible{outline:3px solid #ffcb4c;outline-offset:3px}
 .v11-note{font-size:12px;color:#85749c;line-height:1.6}
 
-/* V11.1.1: polarity clarity and compact item controls */
-.game-flip .action-glyph{display:flex;align-items:center;justify-content:center;gap:4px;letter-spacing:0;font-size:17px;line-height:1.15}
-.game-flip .action-glyph b{display:grid;place-items:center;width:25px;height:25px;border:2px solid #ffffffb3;border-radius:9px;color:#fff;font-weight:1000;box-shadow:inset 0 -2px #0002}
-.game-flip .pole-from,.game-flip .pole-to{background:#ed5870}
-.game-flip .action-glyph b:where(:first-child){outline:2px solid #ffe37e;outline-offset:1px}
-.game-flip .flip-arrow{color:#fff7b6;font-size:18px;font-weight:1000}
-.game-flip .action-glyph b:where(:last-child){background:#438de7}
-.game-flip .action-glyph.from-s .pole-from{background:#438de7}
-.game-flip .action-glyph.from-s .pole-to{background:#ed5870}
-.v9-items .v9-icon{font-size:16px!important;min-width:27px;height:26px;display:grid;place-items:center;border-radius:8px;background:#fff8fc;color:#6946a3;font-weight:1000;letter-spacing:-.7px}
-.v9-items .v9-item{font-weight:900;letter-spacing:-.35px}
-.v9-items .v9-item small{font-weight:750}
+/* V11.1.2: clear hierarchy — primary actions use icon + label only. */
+.game-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.game-control{min-width:0;min-height:72px;gap:5px;padding:8px 4px;font-size:13px}
+.game-control .action-glyph{width:27px;height:27px;display:grid;place-items:center;line-height:1}
+.game-control .action-glyph svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.game-flip .action-glyph{font-size:inherit;letter-spacing:normal}
+.v9-items{gap:9px;margin-top:11px}
+.v9-items .v9-item{min-height:71px;gap:4px;padding:7px 3px;font-weight:900;letter-spacing:-.4px}
+.v9-items .v9-icon{width:29px;height:29px;flex:none;display:grid;place-items:center;border-radius:9px;background:#efe3fc;color:#7650bb}
+.v9-items .v9-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.v9-items .v9-item-name{display:block;white-space:nowrap;font-size:12px}
+.v9-items .v9-item small{font-size:10px;line-height:1.1;color:#9377b7;font-weight:800}
+.v9-items .v9-item.active .v9-icon{background:#fff6d9;color:#9b62b9}
+@media(max-width:360px){.game-controls,.v9-items{gap:6px}.game-control{font-size:12px;min-height:67px}.v9-items .v9-item-name{font-size:11px}}
 </style>
 </head>
 <body>
@@ -311,9 +313,9 @@ body[data-board-theme="forest"] .game-shell .board{background:#86bb8c}body[data-
   <div class="shell game-shell"><div class="board" id="board" aria-label="6x6 자석 퍼즐 게임판"></div></div>
   <div class="hint-strip"><span class="dot"></span><span id="description">스와이프로 이동하고, 자석을 탭하면 극이 바뀌어요!</span></div>
   <div class="game-controls">
-    <button class="game-control game-undo" id="undo"><span class="action-glyph">↶</span><span>되돌리기</span><small>무료</small></button>
-    <button class="game-control game-flip" id="flip"><span class="action-glyph" id="flipPoles"><b class="pole-from">N</b><span class="flip-arrow">→</span><b class="pole-to">S</b></span><span>극성 전환</span><small>1턴 사용</small></button>
-    <button class="game-control game-restart" id="restart"><span class="action-glyph">↻</span><span>다시하기</span><small>처음부터</small></button>
+    <button class="game-control game-undo" id="undo" type="button"><span class="action-glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg></span><span>되돌리기</span></button>
+    <button class="game-control game-flip" id="flip" type="button" aria-label="극성 전환"><span class="action-glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h15l-3-3"/><path d="m19 7-3 3"/><path d="M20 17H5l3-3"/><path d="m5 17 3 3"/></svg></span><span>극성 전환</span></button>
+    <button class="game-control game-restart" id="restart" type="button"><span class="action-glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2.6 6.4"/><path d="M3 4v7h7"/></svg></span><span>다시하기</span></button>
   </div>
   <div class="v9-items" id="gameItems" aria-label="퍼즐 아이템"></div>
   <div class="v9-mode" id="itemMode" hidden></div>
@@ -442,7 +444,7 @@ function position(element,pos){element.style.setProperty('--row',Math.floor(pos/
 let pieces=[];
 function createPiece(kind,index,pol){let el=document.createElement('div');el.className='piece '+(kind==='player'?'player':'ball');if(kind==='player')el.innerHTML=MASCOT_SVG;else el.innerHTML=`<div class="orb ${pol?'s':'n'}">${pol?'S':'N'}</div>`;el.dataset.index=index;if(kind==='player')el.setAttribute('aria-label','자석이 캐릭터 · 탭하여 극 바꾸기');document.getElementById('pieces').append(el);pieces.push(el);if(kind==='player')el.addEventListener('click',e=>{e.stopPropagation();if(!itemMode)act(4)});return el}
 function loadLevel(idx){if(idx<0||idx>=LEVELS.length||idx>=saved.unlocked)return;levelIndex=idx;updateHud();state=initial(LEVELS[idx]);history=[];busy=false;lock=false;assistedRun=false;hintUsedRun=false;itemMode=null;itemSelection=null;renderItemMode();overlay.replaceChildren();document.getElementById('world').textContent='WORLD 01 · 자력 실험실';document.getElementById('stageNum').textContent=idx+1;document.getElementById('turnTarget').textContent=' / '+LEVELS[idx].optimal;document.getElementById('levelTitle').textContent=TITLES[idx];document.getElementById('description').textContent=DESCRIPTIONS[idx];board.replaceChildren();for(let i=0;i<36;i++){let el=document.createElement('div');el.className='cell';if(LEVELS[idx].walls.includes(i))el.classList.add('wall');if(LEVELS[idx].goals.includes(i))el.classList.add('goal');el.dataset.pos=i;board.append(el)}let layer=document.createElement('div');layer.className='pieces';layer.id='pieces';board.append(layer);pieces=[];createPiece('player',-1);LEVELS[idx].balls.forEach((_,i)=>createPiece('ball',i,state.pols[i]));render(false)}
-function render(animated=true,activated=[]){document.getElementById('moves').textContent=state.moves;const poles=document.getElementById('flipPoles');if(poles){poles.classList.toggle('from-s',state.mag===1);poles.querySelector('.pole-from').textContent=state.mag===0?'N':'S';poles.querySelector('.pole-to').textContent=state.mag===0?'S':'N';poles.setAttribute('aria-label',state.mag===0?'현재 N극, 누르면 S극으로 전환':'현재 S극, 누르면 N극으로 전환')}const predicted=state.moves<=LEVELS[levelIndex].optimal+1?3:state.moves<=LEVELS[levelIndex].optimal+4?2:1;const meter=document.getElementById('starMeter');meter.setAttribute('aria-label','현재 예상 별 '+predicted+'개');[...meter.children].forEach((star,i)=>star.classList.toggle('lost',i>=predicted));document.getElementById('undo').disabled=!history.length||busy;const els=board.querySelectorAll('.cell');els.forEach((el,i)=>{el.classList.toggle('filled',state.filled.some(j=>state.balls[j]===i))});pieces.forEach((el,i)=>{const isPlayer=i===0;const ballIdx=i-1;if(!animated)el.style.transition='none';position(el,isPlayer?state.player:state.balls[ballIdx]);el.classList.toggle('disappear',!isPlayer&&state.filled.includes(ballIdx));el.classList.toggle('activated',!isPlayer&&activated.includes(ballIdx));if(!isPlayer){const orb=el.querySelector('.orb');orb.classList.toggle('s',state.pols[ballIdx]===1);orb.classList.toggle('n',state.pols[ballIdx]===0);orb.textContent=state.pols[ballIdx]?'S':'N';el.classList.toggle('v9-target',itemMode!==null&&!state.filled.includes(ballIdx)&&itemSelection===ballIdx)}if(isPlayer){el.classList.toggle('pole-s',state.mag===1);el.classList.toggle('pole-n',state.mag===0)}if(!animated)requestAnimationFrame(()=>el.style.transition='')});renderItemButtons()}
+function render(animated=true,activated=[]){document.getElementById('moves').textContent=state.moves;const flipButton=document.getElementById('flip');if(flipButton)flipButton.setAttribute('aria-label',state.mag===0?'극성 전환: 현재 N극, 누르면 S극':'극성 전환: 현재 S극, 누르면 N극');const predicted=state.moves<=LEVELS[levelIndex].optimal+1?3:state.moves<=LEVELS[levelIndex].optimal+4?2:1;const meter=document.getElementById('starMeter');meter.setAttribute('aria-label','현재 예상 별 '+predicted+'개');[...meter.children].forEach((star,i)=>star.classList.toggle('lost',i>=predicted));document.getElementById('undo').disabled=!history.length||busy;const els=board.querySelectorAll('.cell');els.forEach((el,i)=>{el.classList.toggle('filled',state.filled.some(j=>state.balls[j]===i))});pieces.forEach((el,i)=>{const isPlayer=i===0;const ballIdx=i-1;if(!animated)el.style.transition='none';position(el,isPlayer?state.player:state.balls[ballIdx]);el.classList.toggle('disappear',!isPlayer&&state.filled.includes(ballIdx));el.classList.toggle('activated',!isPlayer&&activated.includes(ballIdx));if(!isPlayer){const orb=el.querySelector('.orb');orb.classList.toggle('s',state.pols[ballIdx]===1);orb.classList.toggle('n',state.pols[ballIdx]===0);orb.textContent=state.pols[ballIdx]?'S':'N';el.classList.toggle('v9-target',itemMode!==null&&!state.filled.includes(ballIdx)&&itemSelection===ballIdx)}if(isPlayer){el.classList.toggle('pole-s',state.mag===1);el.classList.toggle('pole-n',state.mag===0)}if(!animated)requestAnimationFrame(()=>el.style.transition='')});renderItemButtons()}
 function nextState(s,action,level){const t=copy(s),walls=new Set(level.walls),goals=new Set(level.goals);if(action===4)t.mag=1-t.mag;else{let [dr,dc]=DIRS[action],r=Math.floor(t.player/6)+dr,c=t.player%6+dc;if(r<0||r>=6||c<0||c>=6)return null;const newpos=r*6+c;if(walls.has(newpos)||t.balls.some((x,i)=>!t.filled.includes(i)&&x===newpos))return null;t.player=newpos}t.moves++;
 const selected=[];for(const [dr,dc] of DIRS){let r=Math.floor(t.player/6)+dr,c=t.player%6+dc;while(r>=0&&r<6&&c>=0&&c<6){let pos=r*6+c;if(walls.has(pos))break;let i=t.balls.findIndex((x,j)=>x===pos&&!t.filled.includes(j));if(i!==-1){selected.push([i,dr,dc]);break}r+=dr;c+=dc}}
 let moving=new Map(selected.map(([i,dr,dc])=>[i,t.pols[i]===t.mag?[dr,dc]:[-dr,-dc]]));const paths=Object.fromEntries(selected.map(([i])=>[i,[]]));for(let k=0;k<7;k++){let intent=new Map();for(const [i,[dr,dc]] of moving){const r=Math.floor(t.balls[i]/6)+dr,c=t.balls[i]%6+dc;if(r>=0&&r<6&&c>=0&&c<6){const pos=r*6+c;if(!walls.has(pos)&&pos!==t.player)intent.set(i,pos)}}let changed=true;while(changed){changed=false;const counts=new Map();for(const dest of intent.values())counts.set(dest,(counts.get(dest)||0)+1);for(const [i,dest] of intent){const other=t.balls.findIndex((x,j)=>j!==i&&!t.filled.includes(j)&&x===dest);if(counts.get(dest)>1||(other!==-1&&!intent.has(other))){intent.delete(i);changed=true}}}if(intent.size===0)break;const oldFilledGoals=new Set(t.filled.map(i=>t.balls[i]));for(const [i,dest] of intent){t.balls[i]=dest;paths[i].push(dest)}for(const [i,dest] of intent){if(goals.has(dest)&&!oldFilledGoals.has(dest))t.filled.push(i)}moving=new Map([...moving].filter(([i])=>intent.has(i)&&!t.filled.includes(i)))}return {state:t,active:selected.map(([i])=>i),paths}}
@@ -667,9 +669,15 @@ function buyItem(kind){
  if(saved.coins<item.price){toast('코인이 부족해요');return}
  saved.coins-=item.price;saved.inventory[kind]++;save();updateHud();showShop('item');toast(item.name+' 1개 구매 완료!');
 }
+// Compact, consistent line icons for consumable items (no external font or image requests).
+const ITEM_ICONS={
+ hint:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6m-5 3h4"/><path d="M8.6 14.6a7 7 0 1 1 6.8 0c-.8.6-1.4 1.4-1.4 2.4h-4c0-1-.6-1.8-1.4-2.4Z"/></svg>',
+ remote:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8a5 5 0 0 0 10 0V3"/><path d="M7 3h4v5H7zm6 0h4v5h-4"/><path d="m4 18 3-3 3 3m-3-3v6"/><path d="m20 18-3 3-3-3m3 3v-6"/></svg>',
+ booster:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h14"/><path d="m12 7 5 5-5 5"/><path d="M20 5v14"/><path d="M3 8h4M3 16h4"/></svg>'
+};
 function renderItemButtons(){
  const box=document.getElementById('gameItems');if(!box)return;
- box.innerHTML=Object.entries(V9_ITEMS).map(([kind,item])=>`<button class="v9-item ${itemMode===kind?'active':''}" type="button" data-use-item="${kind}" ${busy||lock?'disabled':''}><span class="v9-icon">${item.icon}</span>${item.name}<small>${saved.inventory[kind]}개 보유</small></button>`).join('');
+ box.innerHTML=Object.entries(V9_ITEMS).map(([kind,item])=>`<button class="v9-item ${itemMode===kind?'active':''}" type="button" data-use-item="${kind}" ${busy||lock?'disabled':''}><span class="v9-icon">${ITEM_ICONS[kind]}</span><span class="v9-item-name">${item.name}</span><small>${saved.inventory[kind]}개</small></button>`).join('');
  for(const btn of box.querySelectorAll('[data-use-item]'))btn.onclick=()=>startItem(btn.dataset.useItem);
 }
 function renderItemMode(){
